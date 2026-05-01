@@ -1,0 +1,280 @@
+[
+  {
+    "ContainingType": "Pera.API.Controllers.AuthController",
+    "Method": "GetChatUsers",
+    "RelativePath": "api/Auth/chat-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.AuthController",
+    "Method": "GetOgrenciler",
+    "RelativePath": "api/Auth/ogrenciler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetDetay",
+    "RelativePath": "api/Denemeler/detay/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "Ekle",
+    "RelativePath": "api/Denemeler/ekle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.DenemeEkleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetListem",
+    "RelativePath": "api/Denemeler/listem",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetOgrenciKarnesi",
+    "RelativePath": "api/Denemeler/ogrenci-karnesi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetOgrenciListesi",
+    "RelativePath": "api/Denemeler/ogrenci-listesi/{sinavId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sinavId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetOgrenciSonuclari",
+    "RelativePath": "api/Denemeler/ogrenci-sonuclari/{ogrenciId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ogrenciId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "Sil",
+    "RelativePath": "api/Denemeler/sil/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetSinifOrtalamasi",
+    "RelativePath": "api/Denemeler/sinif-ortalamasi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "SonucEkle",
+    "RelativePath": "api/Denemeler/sonuc-ekle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.DenemeSonucGirisDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "Tanimla",
+    "RelativePath": "api/Denemeler/tanimla",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.DenemeTanimlaDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "GetTanimlar",
+    "RelativePath": "api/Denemeler/tanimlar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tur",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DenemelerController",
+    "Method": "TopluSonucKaydet",
+    "RelativePath": "api/Denemeler/toplu-sonuc",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.TopluSonucGirisDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.DerslerController",
+    "Method": "GetDersNotlari",
+    "RelativePath": "api/Dersler/notlar",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.MesajlarController",
+    "Method": "Gonder",
+    "RelativePath": "api/Mesajlar/gonder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Pera.DTO.DTOs.MesajGonderDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.MesajlarController",
+    "Method": "GetInbox",
+    "RelativePath": "api/Mesajlar/inbox",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pera.API.Controllers.MesajlarController",
+    "Method": "GetSohbet",
+    "RelativePath": "api/Mesajlar/sohbet/{karsiId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "karsiId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

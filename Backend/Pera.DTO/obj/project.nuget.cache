@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "hMV4kQn7PzQ=",
+  "success": true,
+  "projectFilePath": "E:\\Projects\\Pera\\Backend\\Pera.DTO\\Pera.DTO.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ayanoglu\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.22\\microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "C:\\Users\\Ayanoglu\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.22\\microsoft.windowsdesktop.app.ref.8.0.22.nupkg.sha512",
+    "C:\\Users\\Ayanoglu\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.22\\microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}

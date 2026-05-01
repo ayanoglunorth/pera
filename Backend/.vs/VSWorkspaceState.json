@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Pera.API",
+    "\\Pera.API\\Controllers",
+    "\\Pera.Business",
+    "\\Pera.Business\\Concrete",
+    "\\Pera.DataAccess"
+  ],
+  "SelectedNode": "\\Pera.DataAccess\\AppDbContext.cs",
+  "PreviewInSolutionExplorer": false
+}

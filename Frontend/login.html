@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pera — Giriş Yap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="pera-layout.css" />
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-shell">
+            <div class="auth-hero">
+                <div class="auth-brand"><i class="fa-solid fa-leaf"></i> Pera</div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" alt="" />
+                    <p style="margin-top: 20px; font-size: 20px; font-weight: 600; color: var(--text-dark); line-height: 1.4;">Öğretmen ile öğrenciyi aynı sıcak panelde buluşturuyoruz.</p>
+                </div>
+                <div></div>
+            </div>
+            <div class="auth-form-wrap">
+                <h1 class="auth-title">Giriş Yap</h1>
+                <p class="auth-lead">Devam etmek için e-posta ve şifrenizi girin.</p>
+                <div class="stack-sm">
+                    <div>
+                        <label class="form-label" for="email">E-posta</label>
+                        <input id="email" type="email" class="input-field" placeholder="ornek@email.com" autocomplete="email" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="password">Şifre</label>
+                        <div class="row" style="gap: 0; align-items: stretch;">
+                            <input id="password" type="password" class="input-field" style="border-radius: 8px 0 0 8px;" placeholder="••••••••" autocomplete="current-password" />
+                            <button type="button" onclick="togglePassword()" class="btn-secondary" style="border-radius: 0 8px 8px 0; padding: 12px 14px;" aria-label="Şifreyi göster">
+                                <i id="eyeIcon" class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="loginBtn" type="button" onclick="girisYap()" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; margin-top: 8px;">
+                        Giriş Yap
+                    </button>
+                    <p id="errorMsg" class="error-text hidden"></p>
+                </div>
+                <p class="auth-footer">Hesabınız yok mu? <a href="SignUp.html">Kayıt olun</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const pwd = document.getElementById("password");
+            const icon = document.getElementById("eyeIcon");
+            if (pwd.type === "password") {
+                pwd.type = "text";
+                icon.className = "fa-regular fa-eye-slash";
+            } else {
+                pwd.type = "password";
+                icon.className = "fa-regular fa-eye";
+            }
+        }
+
+        async function girisYap() {
+            const baseUrl = "http://localhost:5268";
+            const loginUrl = `${baseUrl}/api/Auth/login`;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const btn = document.getElementById("loginBtn");
+            const errorMsg = document.getElementById("errorMsg");
+
+            btn.innerText = "Giriş yapılıyor...";
+            btn.disabled = true;
+            errorMsg.classList.add("hidden");
+
+            try {
+                const response = await fetch(loginUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: email, sifre: password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem("userToken", data.token);
+                    window.location.href = "dashboard.html";
+                } else {
+                    errorMsg.innerText = data.message || "Giriş başarısız.";
+                    errorMsg.classList.remove("hidden");
+                }
+            } catch (error) {
+                console.error("Hata:", error);
+                errorMsg.innerText = "Sunucu hatası.";
+                errorMsg.classList.remove("hidden");
+            } finally {
+                btn.innerText = "Giriş Yap";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

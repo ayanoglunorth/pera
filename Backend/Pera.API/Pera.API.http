@@ -1,0 +1,6 @@
+@Pera.API_HostAddress = http://localhost:5268
+
+GET {{Pera.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

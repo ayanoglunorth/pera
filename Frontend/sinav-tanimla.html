@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pera — Sınav Tanımla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="pera-layout.css" />
+</head>
+<body class="app-body">
+    <aside class="sidebar">
+        <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
+            <li class="nav-item"><a href="denemeler.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
+            <li class="nav-item"><a href="notlar.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
+            <li class="nav-item"><a href="hedefler.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
+            <li class="nav-item"><a href="takvim.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
+            <li class="nav-item active"><a href="sinav-tanimla.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
+            <li class="nav-item"><a href="sinav-ekle.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
+            <li class="nav-item"><a href="yazili-notu-gir.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="sonuc-yukle.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
+            <li class="nav-item"><a href="bildirimler.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
+            <li class="nav-item"><a href="mesajlar.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
+            <li class="nav-item"><a href="ayarlar.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content" style="justify-content: center;">
+        <div style="width: 100%; max-width: 440px; margin: 0 auto;">
+            <a href="takvim.html" class="btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                <i class="fa-solid fa-arrow-left"></i> Takvime dön
+            </a>
+            <div class="card stack">
+                <div style="text-align: center; margin-bottom: 8px;">
+                    <div style="width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 50%; background: rgba(37,99,235,0.12); color: var(--primary-blue); display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-calendar-plus fa-xl"></i>
+                    </div>
+                    <h1 class="page-title" style="font-size: 22px;">Yeni sınav / etkinlik</h1>
+                    <p class="page-subtitle">Takvime kayıt ekle.</p>
+                </div>
+                <form id="tanimForm" class="stack-sm">
+                    <div>
+                        <label class="form-label">Etkinlik türü</label>
+                        <select id="sinavTur" class="select-field">
+                            <option value="Deneme">Deneme sınavı</option>
+                            <option value="Yazili">Okul yazılısı</option>
+                        </select>
+                        <p class="form-hint">Denemeler analiz sistemine dahil edilir.</p>
+                    </div>
+                    <div>
+                        <label class="form-label">Sınav adı</label>
+                        <input type="text" id="sinavAdi" class="input-field" placeholder="Örn: Töder-1 veya Matematik 1. Yazılı" required />
+                    </div>
+                    <div>
+                        <label class="form-label">Tarih</label>
+                        <input type="date" id="sinavTarih" class="input-field" required />
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 8px;">
+                        <i class="fa-solid fa-floppy-disk"></i> Takvime ekle
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const selectedDate = localStorage.getItem("selectedDate");
+        if (selectedDate) {
+            document.getElementById("sinavTarih").value = selectedDate;
+            localStorage.removeItem("selectedDate");
+        }
+        document.getElementById("tanimForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const token = localStorage.getItem("userToken");
+            const ad = document.getElementById("sinavAdi").value;
+            const tarih = document.getElementById("sinavTarih").value;
+            const tur = document.getElementById("sinavTur").value;
+            try {
+                const response = await fetch("http://localhost:5268/api/Denemeler/tanimla", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                    body: JSON.stringify({ ad, tarih, tur })
+                });
+                if (response.ok) {
+                    alert("Kayıt başarılı.");
+                    window.location.href = "takvim.html";
+                } else alert("Hata oluştu.");
+            } catch (error) {
+                console.error(error);
+                alert("Sunucu hatası.");
+            }
+        });
+    </script>
+</body>
+</html>
