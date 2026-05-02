@@ -1,35 +1,35 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer; 
+ï»¿using Microsoft.AspNetCore.Authentication.JwtBearer; 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens; 
 using Microsoft.OpenApi.Models;
-using Pera.Business.Abstract;   // Interface'ler için
-using Pera.Business.Concrete;   // Class'lar için
+using Pera.Business.Abstract;   // Interface'ler iï¿½in
+using Pera.Business.Concrete;   // Class'lar iï¿½in
 using Pera.DataAccess;
 using Pera.DataAccess.Abstract;
 using Pera.DataAccess.Concrete;
-using Pera.DataAccess.Concrete.EntityFramework;
+
 using Pera.Entity.Entities;
 using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Repository Kaydý: "Veritabaný iþlerini bu sýnýf yapar"
+// Repository Kaydï¿½: "Veritabanï¿½ iï¿½lerini bu sï¿½nï¿½f yapar"
 
-builder.Services.AddScoped<IDersService, DersService>();
-builder.Services.AddScoped<IDersRepository, DersRepository>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 
-// Auth Servisi Kaydý
+// Auth Servisi Kaydï¿½
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Bu satýr, DbContext'e o aradýðý "options" parametresini gönderir.
+// Bu satï¿½r, DbContext'e o aradï¿½ï¿½ï¿½ "options" parametresini gï¿½nderir.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 
-builder.Services.AddIdentity<AppUser, IdentityRole>() // <--- BURASI ÇOK ÖNEMLÝ: IdentityRole EKLENDÝ
+builder.Services.AddIdentity<AppUser, IdentityRole>() // <--- BURASI ï¿½OK ï¿½NEMLï¿½: IdentityRole EKLENDï¿½
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
@@ -41,13 +41,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("IzinVerilenler", policy =>
     {
-        policy.AllowAnyOrigin()   // Þimdilik herkese izin ver (Test için)
-              .AllowAnyHeader()   // Her türlü baþlýðý kabul et
+        policy.AllowAnyOrigin()   // ï¿½imdilik herkese izin ver (Test iï¿½in)
+              .AllowAnyHeader()   // Her tï¿½rlï¿½ baï¿½lï¿½ï¿½ï¿½ kabul et
               .AllowAnyMethod();  // GET, POST, PUT, DELETE hepsine izin ver
     });
 });
 
-// --- JWT DOÐRULAMA AYARLARI ---
+// --- JWT DOï¿½RULAMA AYARLARI ---
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -62,27 +62,27 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
 
-        // Appsettings.json'daki deðerlerle AYNI olmalý
+        // Appsettings.json'daki deï¿½erlerle AYNI olmalï¿½
         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecurityKey"]))
     };
 });
 
-builder.Services.AddScoped<IDenemeRepository, DenemeRepository>();
-builder.Services.AddScoped<IDenemeService, DenemeService>();
-builder.Services.AddScoped<IMesajService, MesajService>();
-builder.Services.AddScoped<IMesajRepository, MesajRepository>();
+builder.Services.AddScoped<IExamRepository, ExamRepository>();
+builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pera API", Version = "v1" });
 
-    // Kilit simgesini ve Token giriþini aktif eden ayar
+    // Kilit simgesini ve Token giriï¿½ini aktif eden ayar
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header using the Bearer scheme. Örnek: \"Bearer {token}\"",
+        Description = "JWT Authorization header using the Bearer scheme. ï¿½rnek: \"Bearer {token}\"",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,

@@ -39,32 +39,28 @@ namespace Pera.DataAccess
             }
         }
 
-        // --- Tabloların ---
-        public DbSet<Ders> Dersler { get; set; }
-        public DbSet<Deneme> Denemeler { get; set; }
-        public DbSet<DenemeSonuc> DenemeSonuclar { get; set; }
-        public DbSet<Mesaj> Mesajlar { get; set; }
-
-        // Eski tablolar (Eğer bunları artık kullanmıyorsan silebilirsin, hata vermez ama temizlik olur)
-        // public DbSet<Sinav> Sinavlar { get; set; } 
-        // public DbSet<SinavSonuc> SinavSonuclar { get; set; }
+        // --- Tables ---
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<ExamResult> ExamResults { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder); // Identity kullanıyorsan bu satır şart!
+            base.OnModelCreating(builder); // Required if using Identity!
 
-            // MESAJLAŞMA İLİŞKİSİ AYARLARI
-            builder.Entity<Mesaj>()
-                .HasOne(m => m.Gonderici)
-                .WithMany() // Bir kullanıcının birden çok gönderdiği mesaj olabilir
-                .HasForeignKey(m => m.GondericiId)
-                .OnDelete(DeleteBehavior.Restrict); // Kullanıcı silinirse mesajları silme (Hata vermesin)
+            // MESSAGING RELATIONSHIP SETTINGS
+            builder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany() // A user can have many sent messages
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict); // Don't delete messages if user deleted (avoid errors)
 
-            builder.Entity<Mesaj>()
-                .HasOne(m => m.Alici)
-                .WithMany() // Bir kullanıcının birden çok aldığı mesaj olabilir
-                .HasForeignKey(m => m.AliciId)
+            builder.Entity<Message>()
+                .HasOne(m => m.Receiver)
+                .WithMany() // A user can have many received messages
+                .HasForeignKey(m => m.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

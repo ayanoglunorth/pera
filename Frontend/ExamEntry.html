@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pera — Deneme Sonuç Girişi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="pera-layout.css" />
+</head>
+<body class="app-body">
+    <aside class="sidebar">
+        <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
+            <li class="nav-item active"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
+            <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
+            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="ResultUpload.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
+            <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
+            <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
+            <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content" style="padding: 0; display: flex; flex-direction: column; overflow: hidden;">
+        <header class="header" style="flex-shrink: 0; padding: 20px 30px; margin-bottom: 0;">
+            <div class="row" style="gap: 16px; align-items: center;">
+                <a href="Exams.html" class="btn-icon" title="Geri"><i class="fa-solid fa-arrow-left"></i></a>
+                <div>
+                    <h1 class="page-title" style="font-size: 22px; margin: 0;" id="sinavBaslik">Sınav yükleniyor...</h1>
+                    <p class="card-muted" id="sinavTarih">...</p>
+                </div>
+            </div>
+            <span class="tag">Öğretmen paneli</span>
+        </header>
+
+        <div class="messages-shell-outer" style="flex: 1; min-height: 0;">
+            <div class="inbox-panel" style="max-width: 320px;">
+                <div class="inbox-head">
+                    <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-gray); margin-bottom: 12px;">Öğrenci seç</h2>
+                    <select id="ogrenciSelect" onchange="ogrenciSecildi()" class="select-field">
+                        <option value="">Listeden seçiniz...</option>
+                    </select>
+                </div>
+                <div id="ogrenciOzet" class="hidden" style="flex: 1; padding: 24px; text-align: center;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-size: 32px;">🎓</div>
+                    <h3 id="ozetAd" style="font-weight: 800; font-size: 18px;">...</h3>
+                    <p class="card-muted">Veri girişi için hazır.</p>
+                </div>
+            </div>
+
+            <div class="chat-panel" style="padding: 24px 30px; overflow-y: auto;">
+                <div id="emptyState" class="empty-chat" style="min-height: 320px;">
+                    <i class="fa-regular fa-hand-pointer" style="font-size: 48px; opacity: 0.35;"></i>
+                    <p style="font-weight: 600; max-width: 360px;">Soldan öğrenci seçerek notları girmeye başla.</p>
+                </div>
+
+                <div id="entryForm" class="hidden stack" style="max-width: 960px;">
+                    <div class="grid-2" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+                        <!-- Türkçe -->
+                        <div class="subject-entry" style="border-top-color: #d97706;">
+                            <span class="max-hint">Max:20</span>
+                            <h4>Türkçe</h4>
+                            <div class="dy-row">
+                                <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="TurkceDogru" min="0" max="20" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                                <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="TurkceYanlis" min="0" max="20" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                            </div>
+                        </div>
+                        <div class="subject-entry" style="border-top-color: #dc2626;">
+                            <span class="max-hint">Max:20</span>
+                            <h4>Matematik</h4>
+                            <div class="dy-row">
+                                <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="MatematikDogru" min="0" max="20" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                                <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="MatematikYanlis" min="0" max="20" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                            </div>
+                        </div>
+                        <div class="subject-entry" style="border-top-color: #16a34a;">
+                            <span class="max-hint">Max:20</span>
+                            <h4>Fen Bilimleri</h4>
+                            <div class="dy-row">
+                                <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="FenDogru" min="0" max="20" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                                <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="FenYanlis" min="0" max="20" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                            </div>
+                        </div>
+                        <div class="subject-entry" style="border-top-color: #9333ea;">
+                            <span class="max-hint">Max:10</span>
+                            <h4>İnkılap Tarihi</h4>
+                            <div class="dy-row">
+                                <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="InkilapDogru" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                                <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="InkilapYanlis" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                            </div>
+                        </div>
+                        <div class="subject-entry" style="border-top-color: #0891b2;">
+                            <span class="max-hint">Max:10</span>
+                            <h4>Din Kültürü</h4>
+                            <div class="dy-row">
+                                <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="DinDogru" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                                <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="DinYanlis" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                            </div>
+                        </div>
+                        <div class="subject-entry" style="border-top-color: #db2777;">
+                            <span class="max-hint">Max:10</span>
+                            <h4>İngilizce</h4>
+                            <div class="dy-row">
+                                <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="IngilizceDogru" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                                <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="IngilizceYanlis" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content: flex-end; gap: 12px; margin-top: 8px;">
+                        <button type="button" class="btn-secondary" onclick="temizle()">Temizle</button>
+                        <button type="button" class="btn-primary" onclick="kaydet()"><i class="fa-solid fa-floppy-disk"></i> Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const baseUrl = "http://localhost:5268";
+        const urlParams = new URLSearchParams(window.location.search);
+        const sinavId = urlParams.get("sinavId");
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            // if (!token || !sinavId) { window.location.href = "Exams.html"; return; }
+            try {
+                const res = await fetch(`${baseUrl}/api/Exams/detail/${sinavId}`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.ok) {
+                    const d = await res.json();
+                    document.getElementById("sinavBaslik").innerText = d.name || "Sınav";
+                    document.getElementById("sinavTarih").innerText = d.date ? new Date(d.date).toLocaleDateString("tr-TR") : "";
+                }
+            } catch (e) {}
+            await ogrencileriYukle(token);
+        });
+
+        async function ogrencileriYukle(token) {
+            try {
+                const res = await fetch(`${baseUrl}/api/Auth/students`, { headers: { "Authorization": `Bearer ${token}` } });
+                const data = await res.json();
+                const select = document.getElementById("ogrenciSelect");
+                data.forEach(o => { select.innerHTML += `<option value="${o.id}">${o.firstName} ${o.lastName}</option>`; });
+            } catch (e) { console.error(e); }
+        }
+
+        function ogrenciSecildi() {
+            const select = document.getElementById("ogrenciSelect");
+            const ogrId = select.value;
+            const oz = document.getElementById("ogrenciOzet");
+            if (!ogrId) {
+                document.getElementById("emptyState").classList.remove("hidden");
+                document.getElementById("entryForm").classList.add("hidden");
+                oz.classList.add("hidden");
+                oz.style.display = "";
+                return;
+            }
+            document.getElementById("emptyState").classList.add("hidden");
+            document.getElementById("entryForm").classList.remove("hidden");
+            oz.classList.remove("hidden");
+            oz.style.flex = "1";
+            oz.style.display = "flex";
+            oz.style.flexDirection = "column";
+            oz.style.alignItems = "center";
+            oz.style.justifyContent = "center";
+            document.getElementById("ozetAd").innerText = select.options[select.selectedIndex].text;
+            temizle();
+        }
+
+        async function kaydet() {
+            const token = localStorage.getItem("userToken");
+            const ogrenciId = document.getElementById("ogrenciSelect").value;
+            if (!ogrenciId) return alert("Öğrenci seçiniz.");
+            const dersAdlari = ["Turkce", "Matematik", "Fen", "Inkilap", "Din", "Ingilizce"];
+            const sonuclar = [];
+            dersAdlari.forEach(ders => {
+                const d = document.getElementById(ders + "Dogru").value || 0;
+                const y = document.getElementById(ders + "Yanlis").value || 0;
+                sonuclar.push({ CourseName: ders, CorrectCount: parseInt(d, 10), WrongCount: parseInt(y, 10) });
+            });
+            const bodyData = { examId: parseInt(sinavId, 10), studentId: ogrenciId, courses: sonuclar };
+            try {
+                const res = await fetch(`${baseUrl}/api/Exams/add`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                    body: JSON.stringify(bodyData)
+                });
+                if (res.ok) alert("Kayıt başarılı.");
+                else alert("Kayıt yapılamadı.");
+            } catch (e) { console.error(e); }
+        }
+
+        function temizle() {
+            document.querySelectorAll("#entryForm input[type=number]").forEach(i => { i.value = ""; });
+        }
+    </script>
+</body>
+</html>

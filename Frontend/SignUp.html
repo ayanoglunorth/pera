@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -64,7 +64,7 @@
                     <button id="registerBtn" type="button" onclick="kayitOl()" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; margin-top: 8px;">Kayıt ol</button>
                     <p id="errorMsg" class="error-text hidden" style="font-weight: 600;"></p>
                 </div>
-                <p class="auth-footer">Zaten hesabın var mı? <a href="login.html">Giriş yap</a></p>
+                <p class="auth-footer">Zaten hesabın var mı? <a href="Login.html">Giriş yap</a></p>
             </div>
         </div>
     </div>
@@ -114,12 +114,12 @@
                 const response = await fetch(registerUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ ad, soyad, email, sifre: password, ogretmenMi })
+                    body: JSON.stringify({ firstName: ad, lastName: soyad, email, password: password, isTeacher: ogretmenMi })
                 });
                 const data = await response.json();
                 if (response.ok) {
                     alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsun.");
-                    window.location.href = "login.html";
+                    window.location.href = "Login.html";
                 } else {
                     let mesaj = "Kayıt başarısız.";
                     if (data.errors && data.errors.length > 0) mesaj = data.errors[0].description;

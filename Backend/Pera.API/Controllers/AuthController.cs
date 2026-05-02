@@ -52,10 +52,10 @@ namespace Pera.API.Controllers
             return Unauthorized(new { message = "Giriş başarısız. Email veya şifre hatalı." });
         }
 
-        [HttpGet("ogrenciler")]
-        public async Task<IActionResult> GetOgrenciler()
+        [HttpGet("students")]
+        public async Task<IActionResult> GetStudents()
         {
-            var result = await _authService.GetOgrencilerAsync();
+            var result = await _authService.GetStudentsAsync();
             return Ok(result);
         }
 
@@ -70,22 +70,22 @@ namespace Pera.API.Controllers
 
             // 2. Kullanıcının rolünü DB'den kesin olarak çekelim
             var roles = await _userManager.GetRolesAsync(currentUser);
-            bool isTeacher = roles.Contains("Ogretmen");
-            bool isStudent = roles.Contains("Ogrenci");
+            bool isTeacher = roles.Contains("Teacher");
+            bool isStudent = roles.Contains("Student");
 
             List<AppUser> targetUsers = new List<AppUser>();
 
             if (isTeacher)
             {
                 // SEN ÖĞRETMENSİN -> KARŞINA ÖĞRENCİLER GELSİN
-                var students = await _userManager.GetUsersInRoleAsync("Ogrenci");
+                var students = await _userManager.GetUsersInRoleAsync("Student");
                 targetUsers = students.ToList();
             }
             else if (isStudent)
             {
                 // SEN ÖĞRENCİSİN -> KARŞINA ÖĞRETMENLER GELSİN
                 // (Dikkat: Burası 'Ogretmen' olmalı)
-                var teachers = await _userManager.GetUsersInRoleAsync("Ogretmen");
+                var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
                 targetUsers = teachers.ToList();
             }
 
@@ -96,9 +96,9 @@ namespace Pera.API.Controllers
             var result = targetUsers.Select(u => new
             {
                 Id = u.Id,
-                Ad = u.Ad ?? u.UserName,
-                Soyad = u.Soyad ?? "",
-                Rol = isTeacher ? "Öğrenci" : "Öğretmen" // Listede kim olduğunu bilsin
+                FirstName = u.FirstName ?? u.UserName,
+                LastName = u.LastName ?? "",
+                Role = isTeacher ? "Student" : "Teacher"
             }).ToList();
 
             return Ok(result);

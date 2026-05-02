@@ -36,3 +36,4 @@ E:\Projects\Pera\Backend\Pera.Business\obj\Debug\net8.0\Pera.Business.dll
 E:\Projects\Pera\Backend\Pera.Business\obj\Debug\net8.0\refint\Pera.Business.dll
 E:\Projects\Pera\Backend\Pera.Business\obj\Debug\net8.0\Pera.Business.pdb
 E:\Projects\Pera\Backend\Pera.Business\obj\Debug\net8.0\ref\Pera.Business.dll
+e:\Projects\Pera\Backend\Pera.Business\obj\Debug\net8.0\Pera.Business.sourcelink.json

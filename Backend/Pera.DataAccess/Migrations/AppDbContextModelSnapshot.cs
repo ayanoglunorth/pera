@@ -155,122 +155,6 @@ namespace Pera.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Pera.Entity.Deneme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DersId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Tarih")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Tur")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DersId");
-
-                    b.ToTable("Denemeler");
-                });
-
-            modelBuilder.Entity("Pera.Entity.DenemeSonuc", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DenemeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DinDogru")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("DinNet")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("DinYanlis")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FenDogru")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("FenNet")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("FenYanlis")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngilizceDogru")
-                        .HasColumnType("int")
-                        .HasColumnName("İngilizceDogru");
-
-                    b.Property<decimal>("IngilizceNet")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("İngilizceNet");
-
-                    b.Property<int>("IngilizceYanlis")
-                        .HasColumnType("int")
-                        .HasColumnName("İngilizceYanlis");
-
-                    b.Property<int>("InkilapDogru")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("InkilapNet")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("InkilapYanlis")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatematikDogru")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MatematikNet")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("MatematikYanlis")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OgrenciId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal?>("Puan")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("ToplamNet")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TurkceDogru")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TurkceNet")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("TurkceYanlis")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DenemeId");
-
-                    b.HasIndex("OgrenciId");
-
-                    b.ToTable("DenemeSonuclar");
-                });
-
             modelBuilder.Entity("Pera.Entity.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -278,10 +162,6 @@ namespace Pera.DataAccess.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -293,6 +173,14 @@ namespace Pera.DataAccess.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -317,14 +205,10 @@ namespace Pera.DataAccess.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ProfilResmi")
+                    b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Soyad")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -347,7 +231,7 @@ namespace Pera.DataAccess.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Pera.Entity.Entities.Ders", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -355,16 +239,16 @@ namespace Pera.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ad")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dersler");
+                    b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Pera.Entity.Entities.Mesaj", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.Exam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -372,31 +256,147 @@ namespace Pera.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AliciId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("GondericiId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Icerik")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("OkunduMu")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("Tarih")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AliciId");
+                    b.HasIndex("CourseId");
 
-                    b.HasIndex("GondericiId");
+                    b.ToTable("Exams");
+                });
 
-                    b.ToTable("Mesajlar");
+            modelBuilder.Entity("Pera.Entity.Entities.ExamResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EnglishCorrect")
+                        .HasColumnType("int")
+                        .HasColumnName("EnglishCorrect");
+
+                    b.Property<decimal>("EnglishNet")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("EnglishNet");
+
+                    b.Property<int>("EnglishWrong")
+                        .HasColumnType("int")
+                        .HasColumnName("EnglishWrong");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HistoryCorrect")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("HistoryNet")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("HistoryWrong")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MathCorrect")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MathNet")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("MathWrong")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReligionCorrect")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ReligionNet")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ReligionWrong")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScienceCorrect")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ScienceNet")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ScienceWrong")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("TotalNet")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TurkishCorrect")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TurkishNet")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TurkishWrong")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("ExamResults");
+                });
+
+            modelBuilder.Entity("Pera.Entity.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -450,61 +450,61 @@ namespace Pera.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Pera.Entity.Deneme", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.Exam", b =>
                 {
-                    b.HasOne("Pera.Entity.Entities.Ders", "Ders")
-                        .WithMany("Denemeler")
-                        .HasForeignKey("DersId");
+                    b.HasOne("Pera.Entity.Entities.Course", "Course")
+                        .WithMany("Exams")
+                        .HasForeignKey("CourseId");
 
-                    b.Navigation("Ders");
+                    b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("Pera.Entity.DenemeSonuc", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.ExamResult", b =>
                 {
-                    b.HasOne("Pera.Entity.Deneme", "Deneme")
-                        .WithMany("Sonuclar")
-                        .HasForeignKey("DenemeId")
+                    b.HasOne("Pera.Entity.Entities.Exam", "Exam")
+                        .WithMany("Results")
+                        .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pera.Entity.Entities.AppUser", "Ogrenci")
+                    b.HasOne("Pera.Entity.Entities.AppUser", "Student")
                         .WithMany()
-                        .HasForeignKey("OgrenciId")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Deneme");
+                    b.Navigation("Exam");
 
-                    b.Navigation("Ogrenci");
+                    b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Pera.Entity.Entities.Mesaj", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.Message", b =>
                 {
-                    b.HasOne("Pera.Entity.Entities.AppUser", "Alici")
+                    b.HasOne("Pera.Entity.Entities.AppUser", "Receiver")
                         .WithMany()
-                        .HasForeignKey("AliciId")
+                        .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Pera.Entity.Entities.AppUser", "Gonderici")
+                    b.HasOne("Pera.Entity.Entities.AppUser", "Sender")
                         .WithMany()
-                        .HasForeignKey("GondericiId")
+                        .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Alici");
+                    b.Navigation("Receiver");
 
-                    b.Navigation("Gonderici");
+                    b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("Pera.Entity.Deneme", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.Course", b =>
                 {
-                    b.Navigation("Sonuclar");
+                    b.Navigation("Exams");
                 });
 
-            modelBuilder.Entity("Pera.Entity.Entities.Ders", b =>
+            modelBuilder.Entity("Pera.Entity.Entities.Exam", b =>
                 {
-                    b.Navigation("Denemeler");
+                    b.Navigation("Results");
                 });
 #pragma warning restore 612, 618
         }

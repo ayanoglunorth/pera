@@ -1,0 +1,552 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pera — Deneme Sınavları</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="pera-layout.css" />
+</head>
+<body class="app-body">
+    <aside class="sidebar">
+        <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
+            <li class="nav-item active"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
+            <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
+            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="ResultUpload.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
+            <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
+            <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
+            <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Ara..." /></div>
+            <div class="header-actions">
+                <div class="popup-container"><button class="icon-btn" onclick="togglePopup('messagesPopup')"><i class="fa-regular fa-envelope"></i></button><div id="messagesPopup" class="popup-panel"><div class="popup-header"><h3>Mesajlar</h3><button class="btn-ghost btn-sm" onclick="togglePopup('messagesPopup')"><i class="fa-solid fa-xmark"></i></button></div><div class="popup-content"><div class="popup-item" onclick="window.location.href='Messages.html'"><div class="popup-avatar">A</div><div class="popup-text"><div class="popup-title">Ahmet Yılmaz</div><div class="popup-desc">Hocam, soruları çözdüm...</div></div><div class="popup-time">2dk</div></div><div class="popup-item" onclick="window.location.href='Messages.html'"><div class="popup-avatar">S</div><div class="popup-text"><div class="popup-title">Selin Kaya</div><div class="popup-desc">Teşekkürler hocam!</div></div><div class="popup-time">1s</div></div></div><div class="popup-footer"><a href="Messages.html" class="btn-ghost btn-sm">Tüm mesajları gör</a></div></div></div>
+                <div class="popup-container"><button class="icon-btn" onclick="togglePopup('notificationsPopup')"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button><div id="notificationsPopup" class="popup-panel"><div class="popup-header"><h3>Bildirimler</h3><button class="btn-ghost btn-sm" onclick="togglePopup('notificationsPopup')"><i class="fa-solid fa-xmark"></i></button></div><div class="popup-content"><div class="popup-item unread" onclick="window.location.href='Notifications.html'"><div class="popup-icon exam"><i class="fa-solid fa-calendar-check"></i></div><div class="popup-text"><div class="popup-title">Yarın Matematik Deneme</div><div class="popup-desc">14:00'te sınav var</div></div><div class="popup-time">2s</div></div><div class="popup-item unread" onclick="window.location.href='Notifications.html'"><div class="popup-icon result"><i class="fa-solid fa-chart-line"></i></div><div class="popup-text"><div class="popup-title">Sonuçlar Açıklandı</div><div class="popup-desc">Fizik deneme sonuçları</div></div><div class="popup-time">5s</div></div></div><div class="popup-footer"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div></div></div>
+                <div class="popup-container">
+                    <div class="header-avatar" style="display:flex;align-items:center;gap:5px;cursor:pointer;" onclick="togglePopup('profilePopup')"><img src="https://i.pravatar.cc/100?img=11" alt="" /><i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-gray);"></i></div>
+                    <div id="profilePopup" class="popup-panel" style="width: 260px;">
+                        <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); text-align: center;">
+                            <img src="https://i.pravatar.cc/100?img=11" style="width: 56px; height: 56px; border-radius: 50%; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto;">
+                            <div style="font-weight: 600; font-size: 15px;">Antion</div>
+                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;">Eğitmen</div>
+                        </div>
+                        <div class="popup-content" style="padding: 8px 0;">
+                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
+                                <i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil
+                            </a>
+                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
+                                <i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar
+                            </a>
+                            <div class="popup-item" onclick="localStorage.removeItem('userToken'); window.location.href='Login.html';" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;">
+                                <i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Öğrenciler</h1>
+                <p class="page-subtitle">Deneme sınavları, net gelişimi ve geçmiş sonuçlar.</p>
+            </div>
+            <div class="row" style="gap: 16px; align-items: center;">
+                <div id="teacherControls" class="hidden row" style="gap: 12px;">
+                    <select id="ogrenciSelect" onchange="ogrenciDegisti()" class="select-field" style="width: auto; min-width: 200px;">
+                        <option value="genel">Sınıf ortalaması</option>
+                    </select>
+                    <button type="button" onclick="openFullEntryModal()" class="btn-primary"><i class="fa-solid fa-plus"></i> Deneme & sonuç gir</button>
+                </div>
+                <div style="text-align: right;">
+                    <p style="font-weight: 700; font-size: 14px;" id="userNameDisplay">...</p>
+                    <p class="card-muted" id="userRoleDisplay">...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stack">
+            <div class="card">
+                <div class="row-between" style="margin-bottom: 16px;">
+                    <h3 class="card-title" style="margin: 0;">Net gelişim grafiği</h3>
+                    <select id="chartFilter" onchange="updateChart()" class="select-field" style="width: auto; min-width: 200px;">
+                        <option value="toplam">Genel (toplam net)</option>
+                        <option value="turkce">Türkçe</option>
+                        <option value="matematik">Matematik</option>
+                        <option value="fen">Fen Bilimleri</option>
+                        <option value="inkilap">İnkılap Tarihi</option>
+                        <option value="din">Din Kültürü</option>
+                        <option value="ingilizce">İngilizce</option>
+                    </select>
+                </div>
+                <div style="position: relative; width: 100%; height: 260px;">
+                    <canvas id="netChart"></canvas>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sınav adı</th>
+                            <th>Tarih</th>
+                            <th>Toplam net</th>
+                            <th>Puan</th>
+                            <th>Durum</th>
+                            <th class="text-right">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="examTableBody">
+                        <tr><td colspan="6" class="card-muted" style="text-align:center;padding:24px;">Yükleniyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="modalBackdrop" class="modal-overlay hidden">
+        <div class="modal-panel modal-panel--lg">
+            <div class="modal-head">
+                <div>
+                    <h2 id="modalTitle" style="font-size: 20px; font-weight: 800;">Sınav sonucu</h2>
+                    <p id="modalDate" class="card-muted">Tarih</p>
+                </div>
+                <button type="button" class="btn-ghost" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrap" style="box-shadow: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Ders</th>
+                                <th class="text-center" style="color: #15803d;">D</th>
+                                <th class="text-center" style="color: #dc2626;">Y</th>
+                                <th class="text-center">Net</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalTableBody"></tbody>
+                        <tfoot style="background: var(--primary-bg); font-weight: 700;">
+                            <tr>
+                                <td>TOPLAM</td>
+                                <td id="totalDogru" class="text-center" style="color: #15803d;">-</td>
+                                <td id="totalYanlis" class="text-center" style="color: #dc2626;">-</td>
+                                <td id="totalNet" class="text-center" style="color: var(--primary-blue); font-size: 18px;">-</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="card" style="margin-top: 16px; padding: 16px 20px;">
+                    <div class="row-between">
+                        <span style="font-weight: 600; color: var(--text-gray);">LGS puanı</span>
+                        <span id="modalPuan" style="font-size: 24px; font-weight: 800; color: #ea580c;">0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fullEntryModal" class="modal-overlay hidden">
+        <div class="modal-panel modal-panel--lg" style="max-height: 92vh;">
+            <div class="modal-head">
+                <h3 style="font-size: 18px; font-weight: 800;"><i class="fa-solid fa-file-pen" style="margin-right: 8px;"></i> Deneme & sonuç girişi</h3>
+                <button type="button" class="btn-ghost" onclick="closeFullEntryModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body stack">
+                <div class="grid-2">
+                    <div class="card" style="box-shadow: none; background: var(--primary-bg);">
+                        <p style="font-weight: 700; color: var(--primary-blue); margin-bottom: 12px;">1. Sınav seçimi</p>
+                        <div class="row" style="gap: 16px; margin-bottom: 12px; font-size: 14px;">
+                            <label class="row" style="gap: 8px; cursor: pointer;"><input type="radio" name="examMode" value="existing" checked onchange="toggleExamMode()" /> Mevcut</label>
+                            <label class="row" style="gap: 8px; cursor: pointer;"><input type="radio" name="examMode" value="new" onchange="toggleExamMode()" /> Yeni</label>
+                        </div>
+                        <div id="existingExamDiv">
+                            <select id="modalExamSelect" class="select-field"><option value="">Sınav seçiniz...</option></select>
+                        </div>
+                        <div id="newExamDiv" class="hidden stack-sm" style="margin-top: 12px;">
+                            <input type="text" id="modalNewExamName" class="input-field" placeholder="Sınav adı (örn: Töder-3)" />
+                            <input type="date" id="modalNewExamDate" class="input-field" />
+                        </div>
+                    </div>
+                    <div class="card" style="box-shadow: none; background: var(--primary-bg);">
+                        <p style="font-weight: 700; color: var(--primary-blue); margin-bottom: 12px;">2. Öğrenci seçimi</p>
+                        <select id="modalStudentSelect" class="select-field"><option value="">Öğrenci seçiniz...</option></select>
+                        <p class="form-hint" style="margin-top: 8px;">Not gireceğin öğrenciyi seç.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="row-between" style="margin-bottom: 12px;">
+                        <span style="font-weight: 700; color: var(--primary-blue);">3. Sonuçlar (LGS)</span>
+                        <span class="tag tag-warn">3 yanlış 1 doğru götürür</span>
+                    </div>
+                    <div id="subjectsGrid" class="grid-2" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));"></div>
+                </div>
+            </div>
+            <div class="modal-foot">
+                <button type="button" class="btn-secondary" onclick="closeFullEntryModal()">İptal</button>
+                <button type="button" class="btn-primary" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i> Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const baseUrl = "http://localhost:5268";
+        let myChart = null;
+        let currentUserRole = "";
+        let globalChartData = [];
+
+        const dersConfig = [
+            { id: "Turkce", label: "Türkçe", max: 20, accent: "#d97706", netBg: "rgba(217, 119, 6, 0.12)", netFg: "#b45309" },
+            { id: "Matematik", label: "Matematik", max: 20, accent: "#dc2626", netBg: "rgba(220, 38, 38, 0.1)", netFg: "#b91c1c" },
+            { id: "Fen", label: "Fen Bilimleri", max: 20, accent: "#16a34a", netBg: "rgba(22, 163, 74, 0.1)", netFg: "#15803d" },
+            { id: "Inkilap", label: "İnkılap", max: 10, accent: "#9333ea", netBg: "rgba(147, 51, 234, 0.1)", netFg: "#7e22ce" },
+            { id: "Din", label: "Din Kültürü", max: 10, accent: "#0891b2", netBg: "rgba(8, 145, 178, 0.1)", netFg: "#0e7490" },
+            { id: "Ingilizce", label: "İngilizce", max: 10, accent: "#db2777", netBg: "rgba(219, 39, 119, 0.1)", netFg: "#9d174d" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            // if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            // if (!user) { cikisYap(); return; }
+            document.getElementById("userNameDisplay").innerText = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
+            currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            renderSubjectInputs();
+            document.getElementById("modalNewExamDate").valueAsDate = new Date();
+            if (currentUserRole === "Teacher") {
+                document.getElementById("userRoleDisplay").innerText = "Eğitmen hesabı";
+                document.getElementById("teacherControls").classList.remove("hidden");
+                await ogrencileriListele(token);
+                loadData(token, "genel");
+            } else {
+                document.getElementById("userRoleDisplay").innerText = "Öğrenci paneli";
+                await fetchDenemeler(token);
+            }
+        });
+
+        function renderSubjectInputs() {
+            const container = document.getElementById("subjectsGrid");
+            let html = "";
+            dersConfig.forEach(d => {
+                html += `
+                    <div class="subject-entry" style="border-top-color: ${d.accent};">
+                        <span class="max-hint">Max:${d.max}</span>
+                        <h4>${d.label}</h4>
+                        <div class="dy-row">
+                            <div class="flex-1">
+                                <div class="mini-label" style="color:#15803d;">D</div>
+                                <input type="number" id="${d.id}Dogru" min="0" max="${d.max}" oninput="validateAndCalculate('${d.id}', ${d.max})" class="input-field" style="text-align:center;font-weight:700;" placeholder="0" />
+                            </div>
+                            <div class="flex-1">
+                                <div class="mini-label" style="color:#dc2626;">Y</div>
+                                <input type="number" id="${d.id}Yanlis" min="0" max="${d.max}" oninput="validateAndCalculate('${d.id}', ${d.max})" class="input-field" style="text-align:center;font-weight:700;" placeholder="0" />
+                            </div>
+                            <div class="net-box" style="background:${d.netBg};color:${d.netFg};">
+                                <span style="font-size:9px;font-weight:800;opacity:0.85;">NET</span>
+                                <span id="${d.id}Net" style="font-weight:800;font-size:14px;">0.00</span>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function validateAndCalculate(dersId, max) {
+            const dogruEl = document.getElementById(dersId + "Dogru");
+            const yanlisEl = document.getElementById(dersId + "Yanlis");
+            const netEl = document.getElementById(dersId + "Net");
+            let d = parseInt(dogruEl.value, 10) || 0;
+            let y = parseInt(yanlisEl.value, 10) || 0;
+            if (d < 0) { d = 0; dogruEl.value = 0; }
+            if (y < 0) { y = 0; yanlisEl.value = 0; }
+            if (d > max) { d = max; dogruEl.value = max; }
+            if (y > max) { y = max; yanlisEl.value = max; }
+            if (d + y > max) {
+                if (document.activeElement === dogruEl) { y = max - d; yanlisEl.value = y; }
+                else { d = max - y; dogruEl.value = d; }
+            }
+            let net = d - y / 3;
+            if (net < 0) net = 0;
+            netEl.innerText = net.toFixed(2);
+        }
+
+        async function loadData(token, type, ogrenciId = null) {
+            const url = type === "genel" ? `${baseUrl}/api/Exams/class-average` : `${baseUrl}/api/Exams/student-results/${ogrenciId}`;
+            try {
+                const response = await fetch(url, { headers: { "Authorization": `Bearer ${token}` } });
+                if (response.ok) {
+                    let rawData = await response.json();
+                    globalChartData = rawData.filter(item => !(item.type === "Written" || (item.name && item.name.toLowerCase().includes("yazılı"))));
+                    renderTable(globalChartData);
+                    renderChart();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function fetchDenemeler(token) {
+            try {
+                const response = await fetch(`${baseUrl}/api/Exams/my-list`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (response.ok) {
+                    let rawData = await response.json();
+                    globalChartData = rawData.filter(item => !(item.type === "Written" || (item.name && item.name.toLowerCase().includes("yazılı"))));
+                    renderTable(globalChartData);
+                    renderChart();
+                }
+            } catch (error) { console.error(error); }
+        }
+
+        async function ogrencileriListele(token) {
+            try {
+                const response = await fetch(`${baseUrl}/api/Auth/students`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (response.ok) {
+                    const ogrenciler = await response.json();
+                    const mainSelect = document.getElementById("ogrenciSelect");
+                    const modalSelect = document.getElementById("modalStudentSelect");
+                    ogrenciler.forEach(ogr => {
+                        mainSelect.appendChild(new Option(`${ogr.firstName} ${ogr.lastName}`, ogr.id));
+                        modalSelect.appendChild(new Option(`${ogr.firstName} ${ogr.lastName}`, ogr.id));
+                    });
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById("examTableBody");
+            tbody.innerHTML = "";
+            const isTeacher = currentUserRole === "Teacher";
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="card-muted" style="text-align:center;padding:20px;">Kayıtlı deneme yok.</td></tr>`;
+                return;
+            }
+            data.slice().reverse().forEach(item => {
+                const row = document.createElement("tr");
+                row.style.cursor = "pointer";
+                row.onclick = (e) => { if (e.target.closest("button")) return; openModal(item.examId); };
+                const deleteBtn = isTeacher
+                    ? `<button type="button" onclick="sinaviSil(${item.examId}, event)" class="btn-ghost" style="color: var(--text-gray);"><i class="fa-solid fa-trash" style="color: var(--danger);"></i></button>`
+                    : "";
+                row.innerHTML = `
+                    <td style="font-weight: 600;">${item.name}</td>
+                    <td class="card-muted">${new Date(item.date).toLocaleDateString("tr-TR")}</td>
+                    <td style="font-weight: 700; color: var(--primary-blue);">${item.totalNet.toFixed(2)}</td>
+                    <td style="font-weight: 700; color: #ea580c;">${item.score ? item.score.toFixed(2) : "-"}</td>
+                    <td><span class="pill-deneme">Deneme</span></td>
+                    <td class="text-right">${deleteBtn}</td>`;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function sinaviSil(id, event) {
+            event.stopPropagation();
+            if (!confirm("Bu sınav sonucunu silmek istediğinize emin misiniz?")) return;
+            const token = localStorage.getItem("userToken");
+            const selectedOgrenciId = document.getElementById("ogrenciSelect").value;
+            try {
+                const response = await fetch(`${baseUrl}/api/Exams/delete/${id}`, { method: "DELETE", headers: { "Authorization": `Bearer ${token}` } });
+                if (response.ok) {
+                    if (selectedOgrenciId === "genel") loadData(token, "genel");
+                    else loadData(token, "ogrenci", selectedOgrenciId);
+                }
+            } catch (error) { console.error(error); }
+        }
+
+        async function openFullEntryModal() {
+            document.getElementById("fullEntryModal").classList.remove("hidden");
+            const token = localStorage.getItem("userToken");
+            try {
+                const res = await fetch(`${baseUrl}/api/Exams/definitions?type=Trial`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.ok) {
+                    const sinavlar = await res.json();
+                    const select = document.getElementById("modalExamSelect");
+                    select.innerHTML = '<option value="">Sınav seçiniz...</option>';
+                    sinavlar.reverse().forEach(s => { select.add(new Option(`${s.name} (${new Date(s.date).toLocaleDateString()})`, s.examId)); });
+                }
+            } catch (e) {}
+        }
+
+        function closeFullEntryModal() { document.getElementById("fullEntryModal").classList.add("hidden"); }
+
+        function toggleExamMode() {
+            const mode = document.querySelector('input[name="examMode"]:checked').value;
+            const exDiv = document.getElementById("existingExamDiv");
+            const newDiv = document.getElementById("newExamDiv");
+            if (mode === "existing") { exDiv.classList.remove("hidden"); newDiv.classList.add("hidden"); }
+            else { exDiv.classList.add("hidden"); newDiv.classList.remove("hidden"); }
+        }
+
+        async function saveAll() {
+            const token = localStorage.getItem("userToken");
+            const mode = document.querySelector('input[name="examMode"]:checked').value;
+            const studentId = document.getElementById("modalStudentSelect").value;
+            if (!studentId) return alert("Öğrenci seçin.");
+            let sinavId = null;
+            if (mode === "existing") {
+                sinavId = document.getElementById("modalExamSelect").value;
+                if (!sinavId) return alert("Sınav seçin.");
+            } else {
+                const name = document.getElementById("modalNewExamName").value;
+                const date = document.getElementById("modalNewExamDate").value;
+                if (!name || !date) return alert("Sınav adı ve tarihi girin.");
+                try {
+                    await fetch(`${baseUrl}/api/Exams/define`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                        body: JSON.stringify({ name: name, date: new Date(date).toISOString(), type: "Trial" })
+                    });
+                    const resList = await fetch(`${baseUrl}/api/Exams/definitions?type=Trial`, { headers: { "Authorization": `Bearer ${token}` } });
+                    const list = await resList.json();
+                    const createdExam = list.find(x => x.name === name);
+                    if (createdExam) sinavId = createdExam.examId;
+                    else throw new Error("Sınav ID bulunamadı.");
+                } catch (e) { return alert("Hata: " + e.message); }
+            }
+            const sonuclar = dersConfig.map(d => ({
+                CourseName: d.label,
+                CorrectCount: parseInt(document.getElementById(d.id + "Dogru").value, 10) || 0,
+                WrongCount: parseInt(document.getElementById(d.id + "Yanlis").value, 10) || 0
+            }));
+            try {
+                const resSave = await fetch(`${baseUrl}/api/Exams/add`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                    body: JSON.stringify({ examId: parseInt(sinavId, 10), studentId: studentId, courses: sonuclar })
+                });
+                if (resSave.ok) {
+                    alert("Kayıt başarılı.");
+                    closeFullEntryModal();
+                    const currentOgr = document.getElementById("ogrenciSelect").value;
+                    if (currentOgr === "genel") loadData(token, "genel"); else loadData(token, "ogrenci", currentOgr);
+                    document.querySelectorAll("#fullEntryModal input[type=number]").forEach(i => { i.value = ""; });
+                    dersConfig.forEach(d => { document.getElementById(d.id + "Net").innerText = "0.00"; });
+                } else alert("Kayıt hatası.");
+            } catch (e) { console.error(e); }
+        }
+
+        function updateChart() { renderChart(); }
+
+        function renderChart() {
+            const ctx = document.getElementById("netChart").getContext("2d");
+            const filterType = document.getElementById("chartFilter").value;
+            if (!globalChartData || globalChartData.length === 0) { if (myChart) myChart.destroy(); return; }
+            const chartData = globalChartData.slice().reverse();
+            const labels = chartData.map(item => item.name);
+            let datasetData = [], labelName = "", color = "", yAxisMax = 90;
+            switch (filterType) {
+                case "turkce": datasetData = chartData.map(i => i.turkishNet); labelName = "Türkçe net"; color = "#f59e0b"; yAxisMax = 20; break;
+                case "matematik": datasetData = chartData.map(i => i.mathNet); labelName = "Matematik net"; color = "#ef4444"; yAxisMax = 20; break;
+                case "fen": datasetData = chartData.map(i => i.scienceNet); labelName = "Fen net"; color = "#10b981"; yAxisMax = 20; break;
+                case "inkilap": datasetData = chartData.map(i => i.historyNet); labelName = "İnkılap net"; color = "#9333ea"; yAxisMax = 10; break;
+                case "din": datasetData = chartData.map(i => i.religionNet); labelName = "Din net"; color = "#06b6d4"; yAxisMax = 10; break;
+                case "ingilizce": datasetData = chartData.map(i => i.englishNet); labelName = "İngilizce net"; color = "#ec4899"; yAxisMax = 10; break;
+                default: datasetData = chartData.map(i => i.totalNet); labelName = "Toplam net"; color = "#2563eb"; yAxisMax = 90;
+            }
+            if (myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: "line",
+                data: { labels, datasets: [{ label: labelName, data: datasetData, borderColor: color, backgroundColor: color + "22", borderWidth: 3, pointRadius: 5, fill: true, tension: 0.3 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, max: yAxisMax }, x: { grid: { display: false } } } }
+            });
+        }
+
+        function ogrenciDegisti() {
+            const val = document.getElementById("ogrenciSelect").value;
+            const token = localStorage.getItem("userToken");
+            if (val === "genel") loadData(token, "genel"); else loadData(token, "ogrenci", val);
+        }
+
+        async function openModal(sinavId) {
+            const token = localStorage.getItem("userToken");
+            document.getElementById("modalBackdrop").classList.remove("hidden");
+            try {
+                const response = await fetch(`${baseUrl}/api/Exams/detail/${sinavId}`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (response.ok) fillModalData(await response.json());
+            } catch { closeModal(); }
+        }
+
+        function fillModalData(data) {
+            document.getElementById("modalTitle").innerText = data.name;
+            document.getElementById("modalDate").innerText = new Date(data.date).toLocaleDateString("tr-TR");
+            document.getElementById("modalPuan").innerText = data.score ? data.score.toFixed(2) : "-";
+            const tbody = document.getElementById("modalTableBody");
+            tbody.innerHTML = "";
+            let tD = 0, tY = 0, tN = 0;
+            data.courses.forEach(d => {
+                let net = d.correctCount - d.wrongCount / 3;
+                tD += d.correctCount; tY += d.wrongCount; tN += net;
+                tbody.innerHTML += `<tr>
+                    <td style="font-weight:600;">${d.courseName}</td>
+                    <td class="text-center" style="color:#15803d;">${d.correctCount}</td>
+                    <td class="text-center" style="color:#dc2626;">${d.wrongCount}</td>
+                    <td class="text-center" style="font-weight:700;">${net.toFixed(2)}</td>
+                </tr>`;
+            });
+            document.getElementById("totalDogru").innerText = tD;
+            document.getElementById("totalYanlis").innerText = tY;
+            document.getElementById("totalNet").innerText = tN.toFixed(2);
+        }
+
+        function closeModal() { document.getElementById("modalBackdrop").classList.add("hidden"); }
+        document.getElementById("modalBackdrop").addEventListener("click", (e) => { if (e.target === document.getElementById("modalBackdrop")) closeModal(); });
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")));
+            } catch (e) { return null; }
+        }
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+    </script>
+    <style>
+        .popup-container { position: relative; }
+        .popup-container button { outline: none; border: none; background: none; }
+        .popup-panel { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 300px; background: var(--white); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 1px solid var(--border-color); z-index: 1000; }
+        .popup-panel.active { display: block; }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border-color); }
+        .popup-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
+        .popup-content { max-height: 250px; overflow-y: auto; }
+        .popup-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--border-color); }
+        .popup-item:last-child { border-bottom: none; }
+        .popup-item:hover { background: var(--primary-bg); }
+        .popup-item.unread { background: rgba(37, 99, 235, 0.04); }
+        .popup-avatar, .popup-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; flex-shrink: 0; }
+        .popup-avatar { background: var(--primary-blue); color: white; }
+        .popup-icon { font-size: 14px; }
+        .popup-icon.exam { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
+        .popup-icon.result { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+        .popup-text { flex: 1; min-width: 0; }
+        .popup-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .popup-desc { font-size: 12px; color: var(--text-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .popup-time { font-size: 11px; color: var(--text-gray); flex-shrink: 0; }
+        .popup-footer { padding: 12px 16px; border-top: 1px solid var(--border-color); text-align: center; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+    </style>
+    <script>
+        function togglePopup(id) {
+            const popup = document.getElementById(id);
+            if (!popup) return;
+            document.querySelectorAll('.popup-panel').forEach(p => {
+                if (p.id !== id) p.classList.remove('active');
+            });
+            popup.classList.toggle('active');
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.popup-container')) {
+                document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
+        });
+    </script>
+</body>
+</html>

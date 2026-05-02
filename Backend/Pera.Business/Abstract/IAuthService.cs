@@ -14,6 +14,6 @@ namespace Pera.Business.Abstract
         Task<bool> RegisterAsync(RegisterDto model);
 
         Task<string> LoginAsync(LoginDto model);
-        Task<List<OgrenciSecimDto>> GetOgrencilerAsync();
+        Task<List<StudentSelectionDto>> GetStudentsAsync();
     }
 }

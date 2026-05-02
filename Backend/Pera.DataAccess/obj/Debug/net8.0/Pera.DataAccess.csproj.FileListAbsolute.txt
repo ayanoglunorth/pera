@@ -32,3 +32,4 @@ E:\Projects\Pera\Backend\Pera.DataAccess\obj\Debug\net8.0\refint\Pera.DataAccess
 E:\Projects\Pera\Backend\Pera.DataAccess\obj\Debug\net8.0\Pera.DataAccess.pdb
 E:\Projects\Pera\Backend\Pera.DataAccess\obj\Debug\net8.0\Pera.DataAccess.genruntimeconfig.cache
 E:\Projects\Pera\Backend\Pera.DataAccess\obj\Debug\net8.0\ref\Pera.DataAccess.dll
+e:\Projects\Pera\Backend\Pera.DataAccess\obj\Debug\net8.0\Pera.DataAccess.sourcelink.json

@@ -317,3 +317,4 @@ E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\refint\Pera.API.dll
 E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\Pera.API.pdb
 E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\Pera.API.genruntimeconfig.cache
 E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\ref\Pera.API.dll
+e:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\Pera.API.sourcelink.json

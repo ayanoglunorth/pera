@@ -38,32 +38,32 @@ namespace Pera.Business.Concrete
             {
                 UserName = model.Email,
                 Email = model.Email,
-                Ad = model.Ad,
-                Soyad = model.Soyad
+                FirstName = model.FirstName,
+                LastName = model.LastName
                 // ProfilResmi veritabanında zorunlu değilse veya varsayılan varsa buraya yazmana gerek yok.
             };
 
-            var result = await _userManager.CreateAsync(user, model.Sifre);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
                 // --- KRİTİK NOKTA: ROL OLUŞTURMA VE ATAMA ---
 
                 // 1. Roller veritabanında yoksa oluştur (Atom bombası sonrası şart!)
-                if (!await _roleManager.RoleExistsAsync("Ogretmen"))
-                    await _roleManager.CreateAsync(new IdentityRole("Ogretmen"));
+                if (!await _roleManager.RoleExistsAsync("Teacher"))
+                    await _roleManager.CreateAsync(new IdentityRole("Teacher"));
 
-                if (!await _roleManager.RoleExistsAsync("Ogrenci"))
-                    await _roleManager.CreateAsync(new IdentityRole("Ogrenci"));
+                if (!await _roleManager.RoleExistsAsync("Student"))
+                    await _roleManager.CreateAsync(new IdentityRole("Student"));
 
                 // 2. Kullanıcının seçimine göre rolü yapıştır
-                if (model.OgretmenMi)
+                if (model.IsTeacher)
                 {
-                    await _userManager.AddToRoleAsync(user, "Ogretmen");
+                    await _userManager.AddToRoleAsync(user, "Teacher");
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(user, "Ogrenci");
+                    await _userManager.AddToRoleAsync(user, "Student");
                 }
 
                 return true; // Kayıt ve Rol atama başarılı
@@ -78,7 +78,7 @@ namespace Pera.Business.Concrete
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null) return null;
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Sifre, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
             // Başarılıysa Token üret, değilse null dön
             if (result.Succeeded)
@@ -89,24 +89,23 @@ namespace Pera.Business.Concrete
             return null;
         }
 
-        public async Task<List<OgrenciSecimDto>> GetOgrencilerAsync()
+        public async Task<List<StudentSelectionDto>> GetStudentsAsync()
         {
-            var users = await _userManager.GetUsersInRoleAsync("Ogrenci");
+            var users = await _userManager.GetUsersInRoleAsync("Student");
 
-            // Listeyi yeni ismimizle oluşturuyoruz
-            var ogrenciListesi = new List<OgrenciSecimDto>();
+            var studentList = new List<StudentSelectionDto>();
 
             foreach (var user in users)
             {
-                ogrenciListesi.Add(new OgrenciSecimDto
+                studentList.Add(new StudentSelectionDto
                 {
                     Id = user.Id,
-                    Ad = user.Ad,
-                    Soyad = user.Soyad
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
                 });
             }
 
-            return ogrenciListesi;
+            return studentList;
         }
         private async Task<string> GenerateJwtToken(AppUser user)
         {
@@ -114,7 +113,7 @@ namespace Pera.Business.Concrete
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email ?? ""),
-                new Claim(ClaimTypes.Name, $"{user.Ad} {user.Soyad}")
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
             };
 
             

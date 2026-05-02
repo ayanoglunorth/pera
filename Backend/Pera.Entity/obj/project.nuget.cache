@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jqZ8z8RR9YY=",
+  "dgSpecHash": "7o8oB3Z/VbE=",
   "success": true,
-  "projectFilePath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
+  "projectFilePath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ayanoglu\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.11\\microsoft.aspnetcore.cryptography.internal.8.0.11.nupkg.sha512",
     "C:\\Users\\Ayanoglu\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.11\\microsoft.aspnetcore.cryptography.keyderivation.8.0.11.nupkg.sha512",

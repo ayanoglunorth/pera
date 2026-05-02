@@ -22,3 +22,4 @@ E:\Projects\Pera\Backend\Pera.Entity\obj\Debug\net8.0\Pera.Entity.dll
 E:\Projects\Pera\Backend\Pera.Entity\obj\Debug\net8.0\refint\Pera.Entity.dll
 E:\Projects\Pera\Backend\Pera.Entity\obj\Debug\net8.0\Pera.Entity.pdb
 E:\Projects\Pera\Backend\Pera.Entity\obj\Debug\net8.0\ref\Pera.Entity.dll
+e:\Projects\Pera\Backend\Pera.Entity\obj\Debug\net8.0\Pera.Entity.sourcelink.json

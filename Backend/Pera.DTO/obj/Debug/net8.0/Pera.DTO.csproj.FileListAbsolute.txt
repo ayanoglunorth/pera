@@ -20,3 +20,4 @@ E:\Projects\Pera\Backend\Pera.DTO\obj\Debug\net8.0\Pera.DTO.dll
 E:\Projects\Pera\Backend\Pera.DTO\obj\Debug\net8.0\refint\Pera.DTO.dll
 E:\Projects\Pera\Backend\Pera.DTO\obj\Debug\net8.0\Pera.DTO.pdb
 E:\Projects\Pera\Backend\Pera.DTO\obj\Debug\net8.0\ref\Pera.DTO.dll
+e:\Projects\Pera\Backend\Pera.DTO\obj\Debug\net8.0\Pera.DTO.sourcelink.json

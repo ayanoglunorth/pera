@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mmBYLmZhuQ8=",
+  "dgSpecHash": "uvKSPqXTehE=",
   "success": true,
-  "projectFilePath": "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj",
+  "projectFilePath": "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ayanoglu\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Ayanoglu\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

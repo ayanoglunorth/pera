@@ -11,13 +11,12 @@ namespace Pera.Entity.Entities
     // <int> diyerek ID'lerin sayı (1, 2, 3) olmasını sağlıyoruz. (Yoksa karmaşık harfler olur)
     public class AppUser : IdentityUser
     {
-        // Identity bize Username, Email, Password, PhoneNumber gibi alanları zaten veriyor.
-        // Biz sadece EKSTRA istediklerimizi buraya yazıyoruz:
+        // Identity already gives us Username, Email, Password, PhoneNumber etc.
+        // We only add extra fields we need:
 
-        public string Ad { get; set; }
-        public string Soyad { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        // Senin arayüzde solda resim vardı, onu da ekleyelim:
-        public string? ProfilResmi { get; set; }
+        public string? ProfilePicture { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {}
+    "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
+    "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
+        "projectUniqueName": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
         "projectName": "Pera.Entity",
-        "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
+        "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
         "packagesPath": "C:\\Users\\Ayanoglu\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\obj\\",
+        "outputPath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ayanoglu\\AppData\\Roaming\\NuGet\\NuGet.Config"

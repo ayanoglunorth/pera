@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -41,7 +41,7 @@
                     </button>
                     <p id="errorMsg" class="error-text hidden"></p>
                 </div>
-                <p class="auth-footer">Hesabınız yok mu? <a href="SignUp.html">Kayıt olun</a></p>
+                <p class="auth-footer">Hesabınız yok mu? <a href="Signup.html">Kayıt olun</a></p>
             </div>
         </div>
     </div>
@@ -75,12 +75,12 @@
                 const response = await fetch(loginUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email: email, sifre: password })
+                    body: JSON.stringify({ email: email, password: password })
                 });
                 const data = await response.json();
                 if (response.ok) {
                     localStorage.setItem("userToken", data.token);
-                    window.location.href = "dashboard.html";
+                    window.location.href = "Dashboard.html";
                 } else {
                     errorMsg.innerText = data.message || "Giriş başarısız.";
                     errorMsg.classList.remove("hidden");
