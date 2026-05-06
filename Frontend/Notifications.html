@@ -118,8 +118,8 @@
                     <div class="notification-desc">Matematik branşında yarın saat 14:00'te deneme sınavı yapılacaktır. Sınav süresi 90 dakika olacaktır.</div>
                     <div class="notification-time"><i class="fa-regular fa-clock"></i> 2 saat önce</div>
                     <div class="notification-actions">
-                        <button class="notification-btn notification-btn-primary">Detaylar</button>
-                        <button class="notification-btn notification-btn-secondary">Kapat</button>
+                        <button class="notification-btn notification-btn-primary" onclick="alert('Detaylar yakında eklenecek.')">Detaylar</button>
+                        <button class="notification-btn notification-btn-secondary" onclick="this.closest('.notification-item').remove()">Kapat</button>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                     <div class="notification-desc">Fizik branşında girdiğiniz deneme sınavının sonuçları açıklandı. Toplam 32 net yaparak %80 başarı oranı elde ettiniz.</div>
                     <div class="notification-time"><i class="fa-regular fa-clock"></i> 5 saat önce</div>
                     <div class="notification-actions">
-                        <button class="notification-btn notification-btn-primary">Sonuçları Gör</button>
+                        <button class="notification-btn notification-btn-primary" onclick="alert('Sonuçlar yakında eklenecek.')">Sonuçları Gör</button>
                         <button class="notification-btn notification-btn-secondary">Kapat</button>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                     <div class="notification-desc">Bu hafta hedefiniz olan 400 net hedefine 25 net kaldı. Kalan 3 günde günde 8 net yapmanız gerekiyor.</div>
                     <div class="notification-time"><i class="fa-regular fa-clock"></i> 1 gün önce</div>
                     <div class="notification-actions">
-                        <button class="notification-btn notification-btn-primary">Hedeflerim</button>
+                        <button class="notification-btn notification-btn-primary" onclick="window.location.href='Goals.html'">Hedeflerim</button>
                         <button class="notification-btn notification-btn-secondary">Kapat</button>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                     <div class="notification-desc">Türkçe yazılı sınavı 15 Nisan 2026 tarihinde yapılacaktır. Konu dağılımı sisteme yüklendi.</div>
                     <div class="notification-time"><i class="fa-regular fa-clock"></i> 2 gün önce</div>
                     <div class="notification-actions">
-                        <button class="notification-btn notification-btn-primary">Takvime Ekle</button>
+                        <button class="notification-btn notification-btn-primary" onclick="alert('Takvime eklendi.')">Takvime Ekle</button>
                         <button class="notification-btn notification-btn-secondary">Kapat</button>
                     </div>
                 </div>
@@ -183,8 +183,8 @@
                     <div class="notification-desc">Bu ay toplam 3 gün devamsızlığınız bulunmaktadır. Devamsızlık oranı %10'a yaklaşmaktadır.</div>
                     <div class="notification-time"><i class="fa-regular fa-clock"></i> 3 gün önce</div>
                     <div class="notification-actions">
-                        <button class="notification-btn notification-btn-primary">Detaylar</button>
-                        <button class="notification-btn notification-btn-secondary">Kapat</button>
+                        <button class="notification-btn notification-btn-primary" onclick="alert('Detaylar yakında eklenecek.')">Detaylar</button>
+                        <button class="notification-btn notification-btn-secondary" onclick="this.closest('.notification-item').remove()">Kapat</button>
                     </div>
                 </div>
             </div>
@@ -196,7 +196,7 @@
                     <div class="notification-desc">Tebrikler! Mart ayında branşınızda en yüksek gelişme oranına sahip öğrenci oldunuz. +15 net artış!</div>
                     <div class="notification-time"><i class="fa-regular fa-clock"></i> 1 hafta önce</div>
                     <div class="notification-actions">
-                        <button class="notification-btn notification-btn-primary">Rozeti Gör</button>
+                        <button class="notification-btn notification-btn-primary" onclick="alert('Rozet yakında eklenecek.')">Rozeti Gör</button>
                         <button class="notification-btn notification-btn-secondary">Kapat</button>
                     </div>
                 </div>
@@ -255,6 +255,94 @@
         .btn-sm { padding: 6px 12px; font-size: 12px; }
     </style>
     <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
+
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { cikisYap(); return; }
+
+            await loadNotifications(token);
+        });
+
+        async function loadNotifications(token) {
+            const container = document.getElementById("notificationList");
+            try {
+                const res = await fetch(`${baseUrl}/api/Notifications`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    renderNotifications(data);
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function renderNotifications(notifications) {
+            const container = document.getElementById("notificationList");
+            if (!container) return;
+            if (!notifications.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-regular fa-bell-slash"></i><h3>Henüz bildirim yok</h3><p>Bildirimler burada görünecek</p></div>';
+                return;
+            }
+            container.innerHTML = notifications.map(n => `
+                <div class="notification-item ${n.isRead ? '' : 'unread'}" onclick="markAsRead(${n.id})">
+                    <div class="notification-icon ${n.type}"><i class="fa-solid fa-${getIcon(n.type)}"></i></div>
+                    <div class="notification-content">
+                        <div class="notification-title">${n.title}</div>
+                        <div class="notification-desc">${n.description || ''}</div>
+                        <div class="notification-time">${formatTime(n.createdAt)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getIcon(type) {
+            const icons = { exam: 'calendar-check', result: 'chart-line', message: 'comment', reminder: 'clock', warning: 'exclamation-triangle' };
+            return icons[type] || 'bell';
+        }
+
+        function formatTime(date) {
+            const d = new Date(date);
+            const now = new Date();
+            const diff = Math.floor((now - d) / 1000);
+            if (diff < 60) return 'Az önce';
+            if (diff < 3600) return `${Math.floor(diff / 60)} dk`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)} saat`;
+            return d.toLocaleDateString('tr-TR');
+        }
+
+        async function markAsRead(id) {
+            const token = localStorage.getItem("userToken");
+            try {
+                await fetch(`${baseUrl}/api/Notifications/${id}/read`, {
+                    method: 'POST',
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                location.reload();
+            } catch (e) { console.error(e); }
+        }
+
+        async function markAllRead() {
+            const token = localStorage.getItem("userToken");
+            try {
+                await fetch(`${baseUrl}/api/Notifications/read-all`, {
+                    method: 'POST',
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                location.reload();
+            } catch (e) { console.error(e); }
+        }
+
         function togglePopup(id) {
             const popup = document.getElementById(id);
             if (!popup) return;

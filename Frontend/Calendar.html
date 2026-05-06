@@ -135,12 +135,12 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            // if (!token) { window.location.href = "Login.html"; return; }
+            if (!token) { window.location.href = "Login.html"; return; }
             const user = parseJwt(token);
-            // if (!user) { cikisYap(); return; }
+            if (!user) { cikisYap(); return; }
             document.getElementById("userNameDisplay").innerText = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
             userRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-            document.getElementById("userRoleDisplay").innerText = userRole === "Ogretmen" ? "Eğitmen hesabı" : "Öğrenci paneli";
+            document.getElementById("userRoleDisplay").innerText = userRole === "Teacher" ? "Eğitmen hesabı" : "Öğrenci paneli";
             await fetchExams(token);
             renderCalendar();
         });
@@ -210,7 +210,7 @@
         }
 
         function dayClicked(day) {
-            if (userRole !== "Ogretmen") return;
+            if (userRole !== "Teacher") return;
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth() + 1;
             const dayStr = day.toString().padStart(2, "0");

@@ -71,7 +71,7 @@
                 <h1 class="page-title">Profil</h1>
                 <p class="page-subtitle">Rozetler, hedefler ve branş gelişimin tek yerde.</p>
             </div>
-            <button type="button" class="btn-primary"><i class="fa-solid fa-pen"></i> Düzenle</button>
+            <button type="button" class="btn-primary" onclick="editProfile()"><i class="fa-solid fa-pen"></i> Düzenle</button>
         </div>
 
         <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
@@ -195,6 +195,35 @@
         .btn-sm { padding: 6px 12px; font-size: 12px; }
     </style>
     <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
+
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { cikisYap(); return; }
+
+            try {
+                const res = await fetch(`${baseUrl}/api/Profile`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById("profileName").textContent = `${data.firstName} ${data.lastName}`;
+                    document.getElementById("profileEmail").textContent = data.email;
+                    document.getElementById("profileRole").textContent = data.role === "Teacher" ? "Eğitmen" : "Öğrenci";
+                }
+            } catch (e) { console.error(e); }
+        });
+
         function togglePopup(id) {
             const popup = document.getElementById(id);
             if (!popup) return;
@@ -203,6 +232,8 @@
             });
             popup.classList.toggle('active');
         }
+
+        function editProfile() { alert("Profil düzenleme yakında eklenecek."); }
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.popup-container')) {
                 document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));

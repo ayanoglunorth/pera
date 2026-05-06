@@ -106,9 +106,23 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            // if (!token) { window.location.href = "Login.html"; return; }
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { localStorage.removeItem("userToken"); window.location.href = "Login.html"; return; }
+            const role = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            if (role !== "Teacher") {
+                alert("Bu sayfaya erişim yetkiniz yok.");
+                window.location.href = "Dashboard.html";
+                return;
+            }
             await sinavlariYukle(token);
         });
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
 
         async function sinavlariYukle(token) {
             try {

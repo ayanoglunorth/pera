@@ -666,7 +666,7 @@
 
         <div class="page-header">
             <h1 class="page-title">Panel</h1>
-            <button class="btn-primary"><i class="fa-solid fa-plus"></i> Liderlik Tablosu</button>
+            <button class="btn-primary" onclick="openLeaderboard()"><i class="fa-solid fa-plus"></i> Liderlik Tablosu</button>
         </div>
 
         <div class="dashboard-grid">
@@ -677,7 +677,7 @@
                         <h3>LGS'ye</h3>
                         <div class="days">87 Gün</div>
                         <p>LGS sınavına geri sayım</p>
-                        <button>Geri Sayım Yap</button>
+                        <button onclick="startCountdown()">Geri Sayım Yap</button>
                     </div>
 
                     <div class="card stat-card">
@@ -888,12 +888,59 @@
     </style>
 
     <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
+
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { cikisYap(); return; }
+
+            const role = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            const userName = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
+
+            // Update header with user info
+            const headerName = document.querySelector('.user-name');
+            const headerAvatar = document.querySelector('.user-avatar');
+            if (headerName) headerName.textContent = userName;
+            if (headerAvatar) headerAvatar.textContent = userName.charAt(0).toUpperCase();
+
+            try {
+                const res = await fetch(`${baseUrl}/api/Dashboard`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (role === "Teacher") {
+                        document.getElementById("studentCountVal").textContent = data.studentCount || 0;
+                        document.getElementById("classAvgVal").textContent = data.classAverage ? data.classAverage.toFixed(0) : "0";
+                    } else {
+                        document.getElementById("totalExamsVal").textContent = data.totalExams || 0;
+                        document.getElementById("avgScoreVal").textContent = data.averageScore ? data.averageScore.toFixed(0) : "0";
+                        document.getElementById("totalGoalsVal").textContent = data.totalGoals || 0;
+                        document.getElementById("completedGoalsVal").textContent = data.completedGoals || 0;
+                    }
+                }
+            } catch (e) { console.error(e); }
+        });
+
         function togglePopup(id) {
             document.querySelectorAll('.popup-panel').forEach(p => {
                 if (p.id !== id) p.classList.remove('active');
             });
             document.getElementById(id).classList.toggle('active');
         }
+
+        function openLeaderboard() { alert("Liderlik tablosu yakında eklenecek."); }
+        function startCountdown() { alert("Geri sayım yakında eklenecek."); }
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.popup-container')) {
                 document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));

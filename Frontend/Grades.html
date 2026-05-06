@@ -144,7 +144,7 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            // if (!token) { window.location.href = "Login.html"; return; }
+            if (!token) { window.location.href = "Login.html"; return; }
             let userRole = localStorage.getItem("userRole");
             if (!userRole) userRole = parseJwt(token).role;
             document.getElementById("userRoleBadge").innerText = userRole === "Teacher" ? "Eğitmen Hesabı" : "Öğrenci Paneli";

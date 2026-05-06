@@ -318,3 +318,5 @@ E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\Pera.API.pdb
 E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\Pera.API.genruntimeconfig.cache
 E:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\ref\Pera.API.dll
 e:\Projects\Pera\Backend\Pera.API\obj\Debug\net8.0\Pera.API.sourcelink.json
+E:\Projects\Pera\Backend\Pera.API\bin\Debug\net8.0\Npgsql.dll
+E:\Projects\Pera\Backend\Pera.API\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

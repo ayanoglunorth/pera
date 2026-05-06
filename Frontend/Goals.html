@@ -82,7 +82,7 @@
                 <h1 class="page-title">Performans</h1>
                 <p class="page-subtitle">Öğretmen atamaları ve kişisel hedeflerin aynı yerde.</p>
             </div>
-            <button type="button" class="btn-primary"><i class="fa-solid fa-plus"></i> Yeni hedef</button>
+            <button type="button" class="btn-primary" onclick="newGoal()"><i class="fa-solid fa-plus"></i> Yeni hedef</button>
         </div>
 
         <div class="grid-3" style="margin-bottom: 24px;">
@@ -119,10 +119,10 @@
         </div>
 
         <div class="row" style="margin-bottom: 20px; flex-wrap: wrap;">
-            <button type="button" class="filter-chip filter-chip--on">Tümü</button>
-            <button type="button" class="filter-chip">Öğretmen atamaları</button>
-            <button type="button" class="filter-chip">Kişisel</button>
-            <button type="button" class="filter-chip">Tamamlananlar</button>
+            <button type="button" class="filter-chip filter-chip--on" onclick="filterGoals('all', this)">Tümü</button>
+            <button type="button" class="filter-chip" onclick="filterGoals('teacher', this)">Öğretmen atamaları</button>
+            <button type="button" class="filter-chip" onclick="filterGoals('personal', this)">Kişisel</button>
+            <button type="button" class="filter-chip" onclick="filterGoals('completed', this)">Tamamlananlar</button>
         </div>
 
         <div class="grid-3">
@@ -199,6 +199,58 @@
         .btn-sm { padding: 6px 12px; font-size: 12px; }
     </style>
     <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
+
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { cikisYap(); return; }
+
+            try {
+                const res = await fetch(`${baseUrl}/api/Goals`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const goals = await res.json();
+                    renderGoals(goals);
+                }
+            } catch (e) { console.error(e); }
+        });
+
+        function renderGoals(goals) {
+            const container = document.getElementById("goalsContainer");
+            if (!container || !goals.length) return;
+            container.innerHTML = goals.map(g => `
+                <div class="goal-card" style="border-top: 4px solid ${g.isCompleted ? '#16a34a' : '#2563eb'};">
+                    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;">
+                        <div>
+                            <h3 style="font-size:16px;font-weight:600;">${g.title}</h3>
+                            <p style="font-size:13px;color:var(--text-gray);margin-top:4px;">${g.description || ''}</p>
+                        </div>
+                        <span class="filter-chip ${g.isCompleted ? 'filter-chip--on' : ''}">${g.type}</span>
+                    </div>
+                    <div style="margin-top:12px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-gray);margin-bottom:6px;">
+                            <span>${g.currentValue} / ${g.targetValue}</span>
+                            <span>${g.progressPercent}%</span>
+                        </div>
+                        <div style="height:8px;background:var(--primary-bg);border-radius:4px;overflow:hidden;">
+                            <div style="height:100%;width:${g.progressPercent}%;background:${g.isCompleted ? '#16a34a' : '#2563eb'};border-radius:4px;"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function togglePopup(id) {
             const popup = document.getElementById(id);
             if (!popup) return;
@@ -206,6 +258,24 @@
                 if (p.id !== id) p.classList.remove('active');
             });
             popup.classList.toggle('active');
+        }
+
+        function newGoal() { alert("Yeni hedef ekleme yakında eklenecek."); }
+
+        function filterGoals(type, el) {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('filter-chip--on'));
+            el.classList.add('filter-chip--on');
+            const cards = document.querySelectorAll('.goal-card');
+            cards.forEach(card => {
+                const tag = card.querySelector('.tag');
+                if (!tag) return;
+                if (type === 'all') { card.style.display = ''; return; }
+                const tagText = tag.textContent.trim();
+                if (type === 'teacher' && tagText.includes('Ahmet Hoca')) { card.style.display = ''; }
+                else if (type === 'personal' && tagText.includes('Kişisel')) { card.style.display = ''; }
+                else if (type === 'completed' && tagText.includes('Tamamlandı')) { card.style.display = ''; }
+                else { card.style.display = 'none'; }
+            });
         }
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.popup-container')) {

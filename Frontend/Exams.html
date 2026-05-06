@@ -217,9 +217,9 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            // if (!token) { window.location.href = "Login.html"; return; }
+            if (!token) { window.location.href = "Login.html"; return; }
             const user = parseJwt(token);
-            // if (!user) { cikisYap(); return; }
+            if (!user) { cikisYap(); return; }
             document.getElementById("userNameDisplay").innerText = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
             currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             renderSubjectInputs();

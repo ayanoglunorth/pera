@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build *)",
+      "Bash(dotnet run *)",
+      "Bash(curl -s http://localhost:5268/api/Auth/students -w \"\\\\n\")",
+      "Bash(dotnet add *)",
+      "Bash(taskkill /F /IM \"Pera.API.exe\")",
+      "Bash(taskkill //F //IM \"Pera.API.exe\")",
+      "WebFetch(domain:)",
+      "Bash(dotnet ef *)"
+    ]
+  }
+}

@@ -24,9 +24,17 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 // Auth Servisi Kayd�
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// Goal ve Notification Servisleri
+builder.Services.AddScoped<IGoalRepository, GoalRepository>();
+builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IUploadedResultRepository, UploadedResultRepository>();
+builder.Services.AddScoped<IUploadedResultService, UploadedResultService>();
+
 // Bu sat�r, DbContext'e o arad��� "options" parametresini g�nderir.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 
 builder.Services.AddIdentity<AppUser, IdentityRole>() // <--- BURASI �OK �NEML�: IdentityRole EKLEND�

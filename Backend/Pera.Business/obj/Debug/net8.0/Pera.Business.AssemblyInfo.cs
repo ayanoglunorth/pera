@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pera.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc81d389ab4e76c9c6d8b4ca52ec63dc19e69a40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c852aea9aee8464cac8ca827a460e4232290640")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pera.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pera.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

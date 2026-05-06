@@ -111,7 +111,7 @@
                             <p>Ad, soyad, e-posta ve telefon numarası</p>
                         </div>
                     </div>
-                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 13px;">Düzenle</button>
+                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 13px;" onclick="editProfile()">Düzenle</button>
                 </div>
                 <div class="settings-row">
                     <div class="settings-info">
@@ -121,7 +121,7 @@
                             <p>Güvenliğiniz için şifrenizi düzenli olarak değiştirin</p>
                         </div>
                     </div>
-                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 13px;">Değiştir</button>
+                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 13px;" onclick="changePassword()">Değiştir</button>
                 </div>
                 <div class="settings-row">
                     <div class="settings-info">
@@ -305,7 +305,7 @@
                             <p>Hesap verilerinizi indirin</p>
                         </div>
                     </div>
-                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 13px;">İndir</button>
+                    <button class="btn-secondary" style="padding: 8px 16px; font-size: 13px;" onclick="downloadData()">İndir</button>
                 </div>
             </div>
         </div>
@@ -321,7 +321,7 @@
                             <p>Hesabınızı ve tüm verilerinizi kalıcı olarak silin</p>
                         </div>
                     </div>
-                    <button class="btn-danger">Hesabı Sil</button>
+                    <button class="btn-danger" onclick="deleteAccount()">Hesabı Sil</button>
                 </div>
             </div>
         </div>
@@ -355,6 +355,61 @@
         .btn-sm { padding: 6px 12px; font-size: 12px; }
     </style>
     <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
+
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { cikisYap(); return; }
+
+            try {
+                const res = await fetch(`${baseUrl}/api/Settings`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById("emailNotif").checked = data.emailNotifications;
+                    document.getElementById("examReminders").checked = data.examReminders;
+                    document.getElementById("resultNotif").checked = data.resultNotifications;
+                    document.getElementById("msgNotif").checked = data.messageNotifications;
+                }
+            } catch (e) { console.error(e); }
+        });
+
+        async function saveSettings() {
+            const token = localStorage.getItem("userToken");
+            const body = {
+                emailNotifications: document.getElementById("emailNotif").checked,
+                examReminders: document.getElementById("examReminders").checked,
+                resultNotifications: document.getElementById("resultNotif").checked,
+                messageNotifications: document.getElementById("msgNotif").checked,
+                theme: "light",
+                language: "tr"
+            };
+            try {
+                const res = await fetch(`${baseUrl}/api/Settings`, {
+                    method: 'PUT',
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                    body: JSON.stringify(body)
+                });
+                if (res.ok) alert("Ayarlar kaydedildi!");
+            } catch (e) { console.error(e); }
+        }
+
+        function editProfile() { alert("Profil düzenleme sayfası yakında eklenecek."); }
+        function changePassword() { alert("Şifre değiştirme sayfası yakında eklenecek."); }
+        function downloadData() { alert("Veri indirme yakında eklenecek."); }
+        function deleteAccount() { if (confirm("Hesabınızı silmek istediğinize emin misiniz?")) { alert("Hesap silme yakında eklenecek."); } }
+
         function togglePopup(id) {
             const popup = document.getElementById(id);
             if (!popup) return;

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj": {}
+    "E:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj": {}
   },
   "projects": {
-    "e:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj": {
+    "E:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj",
+        "projectUniqueName": "E:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj",
         "projectName": "Pera.Business",
-        "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj",
+        "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.Business\\Pera.Business.csproj",
         "packagesPath": "C:\\Users\\Ayanoglu\\.nuget\\packages\\",
-        "outputPath": "e:\\Projects\\Pera\\Backend\\Pera.Business\\obj\\",
+        "outputPath": "E:\\Projects\\Pera\\Backend\\Pera.Business\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ayanoglu\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,14 +26,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj": {
-                "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj"
+              "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj": {
+                "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj"
               },
               "E:\\Projects\\Pera\\Backend\\Pera.DTO\\Pera.DTO.csproj": {
                 "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.DTO\\Pera.DTO.csproj"
               },
-              "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
-                "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj"
+              "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
+                "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj"
               }
             }
           }
@@ -100,14 +100,14 @@
         }
       }
     },
-    "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj": {
+    "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj",
+        "projectUniqueName": "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj",
         "projectName": "Pera.DataAccess",
-        "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj",
+        "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\Pera.DataAccess.csproj",
         "packagesPath": "C:\\Users\\Ayanoglu\\.nuget\\packages\\",
-        "outputPath": "e:\\Projects\\Pera\\Backend\\Pera.DataAccess\\obj\\",
+        "outputPath": "E:\\Projects\\Pera\\Backend\\Pera.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ayanoglu\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -122,8 +122,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
-                "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj"
+              "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
+                "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj"
               }
             }
           }
@@ -157,6 +157,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.22, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             }
           },
           "imports": [
@@ -266,14 +270,14 @@
         }
       }
     },
-    "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
+    "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
+        "projectUniqueName": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
         "projectName": "Pera.Entity",
-        "projectPath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
+        "projectPath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\Pera.Entity.csproj",
         "packagesPath": "C:\\Users\\Ayanoglu\\.nuget\\packages\\",
-        "outputPath": "e:\\Projects\\Pera\\Backend\\Pera.Entity\\obj\\",
+        "outputPath": "E:\\Projects\\Pera\\Backend\\Pera.Entity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ayanoglu\\AppData\\Roaming\\NuGet\\NuGet.Config"
