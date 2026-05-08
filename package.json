@@ -1,0 +1,13 @@
+{
+  "name": "pera",
+  "version": "1.0.0",
+  "description": "Pera Education Platform",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd Backend && dotnet run --project Pera.API",
+    "frontend": "npx --yes serve Frontend -l 3000"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pera — Kayıt Ol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../pera-layout.css" />
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-shell" style="max-width: 1000px;">
+            <div class="auth-hero">
+                <div class="auth-brand"><i class="fa-solid fa-leaf"></i> Pera</div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1471&auto=format&fit=crop" alt="" />
+                    <p style="margin-top: 20px; font-size: 20px; font-weight: 600; color: var(--text-dark); line-height: 1.4;">Zihinleri birleştiriyor, geleceğe ilham veriyoruz.</p>
+                </div>
+                <div></div>
+            </div>
+            <div class="auth-form-wrap">
+                <h1 class="auth-title">Hesap oluştur</h1>
+                <p class="auth-lead">Eğitim yolculuğuna başlamak için bilgilerini gir.</p>
+
+                <div class="role-toggle mb-2" style="margin-bottom: 20px;">
+                    <label><span>Öğretmenim</span><input type="radio" name="user_role" value="true" /></label>
+                    <label><span>Öğrenciyim</span><input type="radio" name="user_role" value="false" checked /></label>
+                </div>
+
+                <div class="stack-sm">
+                    <div class="row" style="gap: 12px;">
+                        <div class="flex-1">
+                            <label class="form-label" for="ad">Ad</label>
+                            <input id="ad" class="input-field" placeholder="Adın" />
+                        </div>
+                        <div class="flex-1">
+                            <label class="form-label" for="soyad">Soyad</label>
+                            <input id="soyad" class="input-field" placeholder="Soyadın" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="email">E-posta</label>
+                        <input id="email" type="email" class="input-field" placeholder="ornek@email.com" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="password">Şifre</label>
+                        <div class="row" style="gap: 0;">
+                            <input id="password" type="password" class="input-field" style="border-radius: 8px 0 0 8px;" placeholder="En az 6 karakter" />
+                            <button type="button" onclick="togglePassword('password', 'eyeIcon1')" class="btn-secondary" style="border-radius: 0 8px 8px 0; padding: 12px 14px;">
+                                <i id="eyeIcon1" class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="confirmPassword">Şifre tekrarı</label>
+                        <div class="row" style="gap: 0;">
+                            <input id="confirmPassword" type="password" class="input-field" style="border-radius: 8px 0 0 8px;" placeholder="Tekrar" />
+                            <button type="button" onclick="togglePassword('confirmPassword', 'eyeIcon2')" class="btn-secondary" style="border-radius: 0 8px 8px 0; padding: 12px 14px;">
+                                <i id="eyeIcon2" class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="registerBtn" type="button" onclick="kayitOl()" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; margin-top: 8px;">Kayıt ol</button>
+                    <p id="errorMsg" class="error-text hidden" style="font-weight: 600;"></p>
+                </div>
+                <p class="auth-footer">Zaten hesabın var mı? <a href="Login.html">Giriş yap</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.className = "fa-regular fa-eye-slash";
+            } else {
+                input.type = "password";
+                icon.className = "fa-regular fa-eye";
+            }
+        }
+
+        async function kayitOl() {
+            const baseUrl = "http://localhost:5268";
+            const registerUrl = `${baseUrl}/api/Auth/register`;
+            const ad = document.getElementById("ad").value;
+            const soyad = document.getElementById("soyad").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const roleRadio = document.querySelector('input[name="user_role"]:checked');
+            const ogretmenMi = roleRadio ? roleRadio.value === "true" : false;
+            const errorMsg = document.getElementById("errorMsg");
+            const btn = document.getElementById("registerBtn");
+
+            if (password !== confirmPassword) {
+                errorMsg.innerText = "Şifreler eşleşmiyor.";
+                errorMsg.classList.remove("hidden");
+                return;
+            }
+            if (!ad || !soyad || !email || !password) {
+                errorMsg.innerText = "Lütfen tüm alanları doldur.";
+                errorMsg.classList.remove("hidden");
+                return;
+            }
+
+            btn.innerText = "Kayıt yapılıyor...";
+            btn.disabled = true;
+            errorMsg.classList.add("hidden");
+
+            try {
+                const response = await fetch(registerUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ firstName: ad, lastName: soyad, email, password: password, isTeacher: ogretmenMi })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsun.");
+                    window.location.href = "Login.html";
+                } else {
+                    let mesaj = "Kayıt başarısız.";
+                    if (data.errors && data.errors.length > 0) mesaj = data.errors[0].description;
+                    else if (data.message) mesaj = data.message;
+                    errorMsg.innerText = mesaj;
+                    errorMsg.classList.remove("hidden");
+                }
+            } catch (error) {
+                console.error(error);
+                errorMsg.innerText = "Sunucu hatası. API çalışıyor mu?";
+                errorMsg.classList.remove("hidden");
+            } finally {
+                btn.innerText = "Kayıt ol";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

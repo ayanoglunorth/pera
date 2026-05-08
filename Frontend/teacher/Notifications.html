@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pera — Bildirimler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="pera-layout.css" />
+    <style>
+        .notification-list { display: flex; flex-direction: column; gap: 12px; }
+        .notification-item { display: flex; gap: 16px; padding: 16px; background: var(--white); border-radius: 12px; border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s; }
+        .notification-item:hover { border-color: var(--primary-blue); box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1); }
+        .notification-item.unread { border-left: 4px solid var(--primary-blue); background: rgba(37, 99, 235, 0.02); }
+        .notification-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .notification-icon.exam { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
+        .notification-icon.result { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+        .notification-icon.message { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .notification-icon.warning { background: rgba(234, 88, 12, 0.1); color: #ea580c; }
+        .notification-icon.reminder { background: rgba(202, 138, 4, 0.1); color: #ca8a04; }
+        .notification-content { flex: 1; }
+        .notification-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .notification-desc { font-size: 13px; color: var(--text-gray); line-height: 1.4; }
+        .notification-time { font-size: 12px; color: var(--text-gray); margin-top: 8px; }
+        .notification-actions { display: flex; gap: 8px; margin-top: 10px; }
+        .notification-btn { padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .notification-btn-primary { background: var(--primary-blue); color: white; border: none; }
+        .notification-btn-primary:hover { background: var(--hover-blue); }
+        .notification-btn-secondary { background: transparent; color: var(--text-gray); border: 1px solid var(--border-color); }
+        .notification-btn-secondary:hover { background: var(--primary-bg); }
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-state i { font-size: 48px; color: var(--text-gray); margin-bottom: 16px; }
+        .empty-state h3 { font-size: 18px; margin-bottom: 8px; }
+        .empty-state p { color: var(--text-gray); font-size: 14px; }
+        .filter-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+        .filter-tab { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; background: var(--primary-bg); color: var(--text-gray); transition: all 0.2s; }
+        .filter-tab:hover { background: var(--border-color); }
+        .filter-tab.active { background: var(--primary-blue); color: white; }
+    </style>
+</head>
+<body class="app-body">
+    <aside class="sidebar">
+        <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
+            
+            
+            
+            
+            <li class="nav-item active"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
+            <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
+            <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Ara..." />
+            </div>
+            <div class="header-actions">
+                <div class="popup-container"><button class="icon-btn" onclick="togglePopup('messagesPopup')"><i class="fa-regular fa-envelope"></i></button><div id="messagesPopup" class="popup-panel"><div class="popup-header"><h3>Mesajlar</h3><button class="btn-ghost btn-sm" onclick="togglePopup('messagesPopup')"><i class="fa-solid fa-xmark"></i></button></div><div class="popup-content"><div class="popup-item" onclick="window.location.href='Messages.html'"><div class="popup-avatar">A</div><div class="popup-text"><div class="popup-title">Ahmet Yılmaz</div><div class="popup-desc">Hocam, soruları çözdüm...</div></div><div class="popup-time">2dk</div></div><div class="popup-item" onclick="window.location.href='Messages.html'"><div class="popup-avatar">S</div><div class="popup-text"><div class="popup-title">Selin Kaya</div><div class="popup-desc">Teşekkürler hocam!</div></div><div class="popup-time">1s</div></div></div><div class="popup-footer"><a href="Messages.html" class="btn-ghost btn-sm">Tüm mesajları gör</a></div></div></div>
+                <div class="popup-container"><button class="icon-btn" onclick="togglePopup('notificationsPopup')"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button><div id="notificationsPopup" class="popup-panel"><div class="popup-header"><h3>Bildirimler</h3><button class="btn-ghost btn-sm" onclick="togglePopup('notificationsPopup')"><i class="fa-solid fa-xmark"></i></button></div><div class="popup-content"><div class="popup-item unread" onclick="window.location.href='Notifications.html'"><div class="popup-icon exam"><i class="fa-solid fa-calendar-check"></i></div><div class="popup-text"><div class="popup-title">Yarın Matematik Deneme</div><div class="popup-desc">14:00'te sınav var</div></div><div class="popup-time">2s</div></div><div class="popup-item unread" onclick="window.location.href='Notifications.html'"><div class="popup-icon result"><i class="fa-solid fa-chart-line"></i></div><div class="popup-text"><div class="popup-title">Sonuçlar Açıklandı</div><div class="popup-desc">Fizik deneme sonuçları</div></div><div class="popup-time">5s</div></div></div><div class="popup-footer"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div></div></div>
+                <div class="popup-container">
+                    <div class="header-avatar" style="display: flex; align-items: center; gap: 5px; cursor: pointer;" onclick="togglePopup('profilePopup')">
+                        <img src="https://i.pravatar.cc/100?img=11" alt="Profil" />
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-gray);"></i>
+                    </div>
+                    <div id="profilePopup" class="popup-panel" style="width: 260px;">
+                        <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); text-align: center;">
+                            <img src="https://i.pravatar.cc/100?img=11" style="width: 56px; height: 56px; border-radius: 50%; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto;">
+                            <div style="font-weight: 600; font-size: 15px;">Antion</div>
+                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;">Eğitmen</div>
+                        </div>
+                        <div class="popup-content" style="padding: 8px 0;">
+                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
+                                <i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil
+                            </a>
+                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
+                                <i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar
+                            </a>
+                            <div class="popup-item" onclick="localStorage.removeItem('userToken'); window.location.href='../auth/Login.html';" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;">
+                                <i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Bildirimler</h1>
+                <p class="page-subtitle">Tüm bildirimleriniz ve duyurularınız tek yerede.</p>
+            </div>
+            <button class="btn-secondary" onclick="markAllAsRead()" style="display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-check-double"></i> Tümünü Okundu İşaretle
+            </button>
+        </div>
+
+        <div class="filter-tabs">
+            <div class="filter-tab active" onclick="filterNotifications('all', this)">Tümü</div>
+            <div class="filter-tab" onclick="filterNotifications('exam', this)">Sınavlar</div>
+            <div class="filter-tab" onclick="filterNotifications('result', this)">Sonuçlar</div>
+            <div class="filter-tab" onclick="filterNotifications('message', this)">Mesajlar</div>
+        </div>
+
+        <div class="notification-list" id="notificationList">
+            <div class="empty-state" id="notifLoading"><i class="fa-regular fa-spinner fa-spin"></i><p>Yükleniyor...</p></div>
+        </div>
+
+        <div style="padding: 20px; text-align: center; color: var(--text-gray); font-size: 13px;">
+            <p>Pera v1.0.0 • <a href="#" style="color: var(--primary-blue); text-decoration: none;">Gizlilik Politikası</a> • <a href="#" style="color: var(--primary-blue); text-decoration: none;">Kullanım Şartları</a></p>
+        </div>
+    </main>
+
+    <script>
+        function filterNotifications(type, element) {
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
+            
+            const items = document.querySelectorAll('.notification-item');
+            items.forEach(item => {
+                if (type === 'all' || item.dataset.type === type) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function markAllAsRead() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            document.querySelector('.badge').style.display = 'none';
+        }
+    </script>
+    <style>
+        .popup-container { position: relative; }
+        .popup-container button { outline: none; border: none; background: none; }
+        .popup-panel { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 300px; background: var(--white); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 1px solid var(--border-color); z-index: 1000; }
+        .popup-panel.active { display: block; }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border-color); }
+        .popup-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
+        .popup-content { max-height: 250px; overflow-y: auto; }
+        .popup-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--border-color); }
+        .popup-item:last-child { border-bottom: none; }
+        .popup-item:hover { background: var(--primary-bg); }
+        .popup-item.unread { background: rgba(37, 99, 235, 0.04); }
+        .popup-avatar, .popup-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; flex-shrink: 0; }
+        .popup-avatar { background: var(--primary-blue); color: white; }
+        .popup-icon { font-size: 14px; }
+        .popup-icon.exam { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
+        .popup-icon.result { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+        .popup-text { flex: 1; min-width: 0; }
+        .popup-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .popup-desc { font-size: 12px; color: var(--text-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .popup-time { font-size: 11px; color: var(--text-gray); flex-shrink: 0; }
+        .popup-footer { padding: 12px 16px; border-top: 1px solid var(--border-color); text-align: center; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+    </style>
+    <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+            } catch (e) { return null; }
+        }
+
+        function cikisYap() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { cikisYap(); return; }
+
+            await loadNotifications(token);
+        });
+
+        async function loadNotifications(token) {
+            const container = document.getElementById("notificationList");
+            try {
+                const res = await fetch(`${baseUrl}/api/Notifications`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    renderNotifications(data);
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function renderNotifications(notifications) {
+            const container = document.getElementById("notificationList");
+            if (!container) return;
+            if (!notifications.length) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-regular fa-bell-slash"></i><h3>Henüz bildirim yok</h3><p>Bildirimler burada görünecek</p></div>';
+                return;
+            }
+            container.innerHTML = notifications.map(n => `
+                <div class="notification-item ${n.isRead ? '' : 'unread'}" onclick="markAsRead(${n.id})">
+                    <div class="notification-icon ${n.type}"><i class="fa-solid fa-${getIcon(n.type)}"></i></div>
+                    <div class="notification-content">
+                        <div class="notification-title">${n.title}</div>
+                        <div class="notification-desc">${n.description || ''}</div>
+                        <div class="notification-time">${formatTime(n.createdAt)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getIcon(type) {
+            const icons = { exam: 'calendar-check', result: 'chart-line', message: 'comment', reminder: 'clock', warning: 'exclamation-triangle' };
+            return icons[type] || 'bell';
+        }
+
+        function formatTime(date) {
+            const d = new Date(date);
+            const now = new Date();
+            const diff = Math.floor((now - d) / 1000);
+            if (diff < 60) return 'Az önce';
+            if (diff < 3600) return `${Math.floor(diff / 60)} dk`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)} saat`;
+            return d.toLocaleDateString('tr-TR');
+        }
+
+        async function markAsRead(id) {
+            const token = localStorage.getItem("userToken");
+            try {
+                await fetch(`${baseUrl}/api/Notifications/${id}/read`, {
+                    method: 'POST',
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                location.reload();
+            } catch (e) { console.error(e); }
+        }
+
+        async function markAllRead() {
+            const token = localStorage.getItem("userToken");
+            try {
+                await fetch(`${baseUrl}/api/Notifications/read-all`, {
+                    method: 'POST',
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                location.reload();
+            } catch (e) { console.error(e); }
+        }
+
+        function togglePopup(id) {
+            const popup = document.getElementById(id);
+            if (!popup) return;
+            document.querySelectorAll('.popup-panel').forEach(p => {
+                if (p.id !== id) p.classList.remove('active');
+            });
+            popup.classList.toggle('active');
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.popup-container')) {
+                document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
+        });
+    </script>
+</body>
+</html>

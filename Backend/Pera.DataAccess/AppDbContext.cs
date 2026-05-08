@@ -23,19 +23,12 @@ namespace Pera.DataAccess
         {
         }
 
-        // 3. Bağlantı Ayarı (OnConfiguring) - İŞTE EKSİK OLAN BU!
+        // 3. Bağlantı Ayarı (OnConfiguring) - PostgreSQL fallback
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Eğer dışarıdan bir ayar verilmediyse (ki new AppDbContext() dediğimizde verilmiyor),
-            // buradaki ayarı kullan.
             if (!optionsBuilder.IsConfigured)
             {
-                // DİKKAT: Buraya kendi connection string'ini yazmalısın.
-                // Genelde şöyledir: "Server=.;Database=PeraDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-                // Veya "Server=(localdb)\\mssqllocaldb;Database=PeraDb;..." olabilir.
-                // appsettings.json dosyanı kontrol et, oradakiyle aynı olsun.
-
-                optionsBuilder.UseSqlServer("Server=.;Database=PeraDb;Trusted_Connection=True;TrustServerCertificate=True;");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Pera;Username=postgres;Password=ayanoglu");
             }
         }
 

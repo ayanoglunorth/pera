@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öğretmen Paneli — Pera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../pera-layout.css">
+    <style>
+        :root {
+            --primary-bg: #f5f6fa;
+            --white: #ffffff;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --primary-blue: #2563eb;
+            --yellow-main: #facc15;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --sidebar-width: 260px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--primary-bg); color: var(--text-dark); display: flex; height: 100vh; overflow: hidden; }
+
+        .sidebar { width: var(--sidebar-width); background-color: var(--white); height: 100%; display: flex; flex-direction: column; padding: 20px 0; border-right: 1px solid var(--border-color); }
+        .logo-container { display: flex; align-items: center; padding: 0 24px; margin-bottom: 30px; font-size: 24px; font-weight: 700; }
+        .logo-container i { color: #d97706; margin-right: 10px; }
+        .nav-menu { list-style: none; flex: 1; }
+        .nav-item { padding: 0 16px; margin-bottom: 5px; }
+        .nav-link { display: flex; align-items: center; padding: 12px 20px; color: var(--text-gray); text-decoration: none; border-radius: 12px; font-weight: 500; transition: all 0.2s; }
+        .nav-link i { margin-right: 15px; font-size: 18px; width: 20px; text-align: center; }
+        .nav-link:hover, .nav-item.active .nav-link { background-color: var(--yellow-main); color: var(--text-dark); }
+        .user-profile { display: flex; align-items: center; padding: 15px; margin: 0 20px; background-color: var(--primary-bg); border-radius: 12px; margin-top: auto; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background-color: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 12px; }
+        .user-info { flex: 1; }
+        .user-name { font-size: 14px; font-weight: 600; }
+        .user-role { font-size: 12px; color: var(--text-gray); }
+
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding: 20px 30px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .search-bar { background-color: var(--border-color); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; width: 300px; }
+        .search-bar i { color: var(--text-gray); margin-right: 10px; }
+        .search-bar input { border: none; background: none; outline: none; width: 100%; font-size: 14px; }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .icon-btn { color: var(--text-gray); font-size: 18px; position: relative; cursor: pointer; }
+        .badge { position: absolute; top: -5px; right: -5px; background-color: #ef4444; color: white; font-size: 10px; width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .header-avatar { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .header-avatar-circle { width: 35px; height: 35px; border-radius: 50%; background-color: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .page-title { font-size: 28px; color: var(--primary-blue); font-weight: 700; }
+        .btn-primary { background-color: var(--primary-blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .card { background-color: var(--white); border-radius: 16px; padding: 24px; box-shadow: var(--card-shadow); }
+        .card-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .card-muted { color: var(--text-gray); font-size: 13px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 24px; }
+        .stat-card { display: flex; flex-direction: column; gap: 8px; }
+        .stat-label { font-size: 13px; color: var(--text-gray); font-weight: 500; }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--primary-blue); }
+        .stat-sub { font-size: 12px; color: var(--text-gray); }
+
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-gray); }
+        .empty-state i { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+        .empty-state p { font-size: 14px; }
+
+        .popup-container { position: relative; }
+        .popup-container button { outline: none; border: none; background: none; }
+        .popup-panel { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 320px; background: var(--white); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 1px solid var(--border-color); z-index: 1000; }
+        .popup-panel.active { display: block; }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border-color); }
+        .popup-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
+        .popup-content { max-height: 300px; overflow-y: auto; }
+        .popup-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--border-color); }
+        .popup-item:last-child { border-bottom: none; }
+        .popup-item:hover { background: var(--primary-bg); }
+        .popup-avatar { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; flex-shrink: 0; background: var(--primary-blue); color: white; }
+        .popup-text { flex: 1; min-width: 0; }
+        .popup-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .popup-desc { font-size: 12px; color: var(--text-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .popup-time { font-size: 11px; color: var(--text-gray); flex-shrink: 0; }
+        .popup-footer { padding: 12px 16px; border-top: 1px solid var(--border-color); text-align: center; }
+        .popup-item-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+        .popup-item-icon.exam { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
+        .popup-item-icon.result { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+        .popup-item-icon.message { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .btn-sm { padding: 8px 16px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
+        <ul class="nav-menu">
+            <li class="nav-item active"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Notlar</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Hedefler</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Takvim</a></li>
+            <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
+            <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
+            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-file-signature"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="ExamEntry.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
+            <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
+            <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
+            <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebarAvatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="sidebarName">Yükleniyor...</div>
+                <div class="user-role" id="sidebarRole">Öğretmen</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Ara..." /></div>
+            <div class="header-actions">
+                <div class="popup-container">
+                    <button class="icon-btn" onclick="togglePopup('messagesPopup')"><i class="fa-regular fa-envelope"></i></button>
+                    <div id="messagesPopup" class="popup-panel">
+                        <div class="popup-header"><h3>Mesajlar</h3><button class="btn-ghost btn-sm" onclick="togglePopup('messagesPopup')"><i class="fa-solid fa-xmark"></i></button></div>
+                        <div class="popup-content" id="messagesPopupContent"><div class="empty-state"><p>Yükleniyor...</p></div></div>
+                        <div class="popup-footer"><a href="Messages.html" class="btn-ghost btn-sm">Tüm mesajları gör</a></div>
+                    </div>
+                </div>
+                <div class="popup-container">
+                    <button class="icon-btn" onclick="togglePopup('notificationsPopup')"><i class="fa-regular fa-bell"></i><span class="badge" id="notifBadge" style="display:none;">0</span></button>
+                    <div id="notificationsPopup" class="popup-panel">
+                        <div class="popup-header"><h3>Bildirimler</h3><button class="btn-ghost btn-sm" onclick="togglePopup('notificationsPopup')"><i class="fa-solid fa-xmark"></i></button></div>
+                        <div class="popup-content" id="notifPopupContent"><div class="empty-state"><p>Yükleniyor...</p></div></div>
+                        <div class="popup-footer"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div>
+                    </div>
+                </div>
+                <div class="popup-container">
+                    <div class="header-avatar" onclick="togglePopup('profilePopup')">
+                        <div class="header-avatar-circle" id="headerAvatar">?</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-gray);"></i>
+                    </div>
+                    <div id="profilePopup" class="popup-panel" style="width: 260px;">
+                        <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); text-align: center;">
+                            <div class="header-avatar-circle" id="popupAvatar" style="width: 56px; height: 56px; font-size: 22px; margin: 0 auto 12px;">?</div>
+                            <div style="font-weight: 600; font-size: 15px;" id="popupName">-</div>
+                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;" id="popupRole">Öğretmen</div>
+                        </div>
+                        <div class="popup-content" style="padding: 8px 0;">
+                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;"><i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil</a>
+                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;"><i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar</a>
+                            <div class="popup-item" onclick="logout()" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;"><i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-header">
+            <h1 class="page-title">Öğretmen Paneli</h1>
+        </div>
+
+        <div class="stats-grid" id="statsContainer">
+            <div class="card stat-card">
+                <div class="stat-label">Öğrenci Sayısı</div>
+                <div class="stat-value" id="statStudentCount">-</div>
+                <div class="stat-sub">Kayıtlı öğrenci</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-label">Sınıf Ortalaması</div>
+                <div class="stat-value" id="statClassAvg">-</div>
+                <div class="stat-sub">Tüm öğrenciler</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-label">Toplam Sınav</div>
+                <div class="stat-value" id="statTotalExams">-</div>
+                <div class="stat-sub">Tanımlanan sınav</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-label">Bugünkü Tarih</div>
+                <div class="stat-value" id="statToday" style="font-size: 24px;">-</div>
+                <div class="stat-sub" id="statDayName">-</div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+            <div class="card-title"><i class="fa-solid fa-chart-line" style="color: var(--primary-blue);"></i> Son Sınav Sonuçları</div>
+            <div id="recentExams" class="empty-state"><i class="fa-regular fa-clock"></i><p>Henüz sınav sonucu yok</p></div>
+        </div>
+    </main>
+
+    <script>
+        const baseUrl = "http://localhost:5268";
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")));
+            } catch (e) { return null; }
+        }
+
+        function logout() {
+            localStorage.removeItem("userToken");
+            window.location.href = "../auth/Login.html";
+        }
+
+        function togglePopup(id) {
+            document.querySelectorAll('.popup-panel').forEach(p => { if (p.id !== id) p.classList.remove('active'); });
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.popup-container')) document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("userToken");
+            if (!token) { window.location.href = "../auth/Login.html"; return; }
+            const user = parseJwt(token);
+            if (!user) { logout(); return; }
+
+            const role = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            const userName = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
+            const firstLetter = userName.charAt(0).toUpperCase();
+
+            // Sidebar
+            document.getElementById("sidebarName").textContent = userName;
+            document.getElementById("sidebarAvatar").textContent = firstLetter;
+            document.getElementById("sidebarRole").textContent = role === "Teacher" ? "Öğretmen" : "Öğrenci";
+
+            // Header avatar
+            document.getElementById("headerAvatar").textContent = firstLetter;
+            document.getElementById("popupAvatar").textContent = firstLetter;
+            document.getElementById("popupName").textContent = userName;
+            document.getElementById("popupRole").textContent = role === "Teacher" ? "Öğretmen" : "Öğrenci";
+
+            // Today's date
+            const now = new Date();
+            const gunAdlari = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+            document.getElementById("statToday").textContent = now.toLocaleDateString("tr-TR");
+            document.getElementById("statDayName").textContent = gunAdlari[now.getDay()];
+
+            // Load dashboard data
+            await loadDashboardData(token);
+
+            // Load popup data
+            await loadMessagesPopup(token);
+            await loadNotificationsPopup(token);
+        });
+
+        async function loadDashboardData(token) {
+            try {
+                const res = await fetch(`${baseUrl}/api/Dashboard`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById("statStudentCount").textContent = data.studentCount ?? data.studentCount === 0 ? data.studentCount : "-";
+                    document.getElementById("statClassAvg").textContent = data.classAverage ? data.classAverage.toFixed(0) : "-";
+                    document.getElementById("statTotalExams").textContent = data.totalExams ?? "-";
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadMessagesPopup(token) {
+            const container = document.getElementById("messagesPopupContent");
+            try {
+                const res = await fetch(`${baseUrl}/api/Messages/inbox`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.ok) {
+                    const msgs = await res.json();
+                    if (!msgs.length) {
+                        container.innerHTML = '<div class="empty-state"><p>Henüz mesaj yok</p></div>';
+                        return;
+                    }
+                    container.innerHTML = msgs.slice(0, 3).map(m => `
+                        <div class="popup-item" onclick="window.location.href='Messages.html'">
+                            <div class="popup-avatar">${(m.fullName || '?').charAt(0)}</div>
+                            <div class="popup-text">
+                                <div class="popup-title">${m.fullName || 'Kullanıcı'}</div>
+                                <div class="popup-desc">${(m.lastMessage || '').substring(0, 40)}...</div>
+                            </div>
+                            <div class="popup-time">${m.unreadCount > 0 ? `<span style="background:var(--primary-blue);color:white;padding:2px 6px;border-radius:10px;font-size:10px;">${m.unreadCount}</span>` : ''}</div>
+                        </div>`).join('');
+                }
+            } catch (e) { container.innerHTML = '<div class="empty-state"><p>Yüklenemedi</p></div>'; }
+        }
+
+        async function loadNotificationsPopup(token) {
+            const container = document.getElementById("notifPopupContent");
+            const badge = document.getElementById("notifBadge");
+            try {
+                const res = await fetch(`${baseUrl}/api/Notifications`, { headers: { "Authorization": `Bearer ${token}` } });
+                if (res.ok) {
+                    const notifs = await res.json();
+                    const unread = notifs.filter(n => !n.isRead).length;
+                    if (badge) { badge.style.display = unread > 0 ? 'flex' : 'none'; badge.textContent = unread; }
+                    if (!notifs.length) {
+                        container.innerHTML = '<div class="empty-state"><p>Henüz bildirim yok</p></div>';
+                        return;
+                    }
+                    container.innerHTML = notifs.slice(0, 3).map(n => `
+                        <div class="popup-item" onclick="window.location.href='Notifications.html'">
+                            <div class="popup-item-icon ${n.type || 'exam'}"><i class="fa-solid fa-${getNotifIcon(n.type)}"></i></div>
+                            <div class="popup-text">
+                                <div class="popup-title">${n.title || 'Bildirim'}</div>
+                                <div class="popup-desc">${(n.description || '').substring(0, 40)}...</div>
+                            </div>
+                        </div>`).join('');
+                }
+            } catch (e) { container.innerHTML = '<div class="empty-state"><p>Yüklenemedi</p></div>'; }
+        }
+
+        function getNotifIcon(type) {
+            const icons = { exam: 'calendar-check', result: 'chart-line', message: 'comment', reminder: 'clock' };
+            return icons[type] || 'bell';
+        }
+    </script>
+</body>
+</html>

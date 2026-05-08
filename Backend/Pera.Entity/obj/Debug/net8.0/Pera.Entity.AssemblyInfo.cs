@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pera.Entity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c852aea9aee8464cac8ca827a460e4232290640")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8096f0f2734f86f3583ea0215c1533fd3ffca0c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pera.Entity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pera.Entity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
