@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -14,7 +14,19 @@
             <div class="auth-hero">
                 <div class="auth-brand"><i class="fa-solid fa-leaf"></i> Pera</div>
                 <div>
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop" alt="" />
+                    <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto;">
+                        <rect x="40" y="60" width="340" height="220" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+                        <rect x="60" y="90" width="200" height="12" rx="6" fill="#93c5fd"/>
+                        <rect x="60" y="114" width="160" height="10" rx="5" fill="#bfdbfe"/>
+                        <rect x="60" y="134" width="180" height="10" rx="5" fill="#bfdbfe"/>
+                        <rect x="60" y="154" width="140" height="10" rx="5" fill="#bfdbfe"/>
+                        <rect x="60" y="180" width="70" height="28" rx="8" fill="#2563eb"/>
+                        <rect x="145" y="180" width="70" height="28" rx="8" fill="#facc15"/>
+                        <circle cx="330" cy="200" r="50" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+                        <text x="330" y="207" text-anchor="middle" font-size="40" font-family="sans-serif">🎓</text>
+                        <circle cx="100" cy="60" r="22" fill="#facc15"/>
+                        <text x="100" y="68" text-anchor="middle" font-size="22" font-family="sans-serif">📚</text>
+                    </svg>
                     <p style="margin-top: 20px; font-size: 20px; font-weight: 600; color: var(--text-dark); line-height: 1.4;">Öğretmen ile öğrenciyi aynı sıcak panelde buluşturuyoruz.</p>
                 </div>
                 <div></div>
@@ -23,20 +35,20 @@
                 <h1 class="auth-title">Giriş Yap</h1>
                 <p class="auth-lead">Devam etmek için e-posta ve şifrenizi girin.</p>
                 <div class="stack-sm">
-                    <div>
+                    <div class="form-group">
                         <label class="form-label" for="email">E-posta</label>
                         <input id="email" type="email" class="input-field" placeholder="ornek@email.com" autocomplete="email" />
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label class="form-label" for="password">Şifre</label>
-                        <div class="row" style="gap: 0; align-items: stretch;">
+                        <div class="password-wrap">
                             <input id="password" type="password" class="input-field" style="border-radius: 8px 0 0 8px;" placeholder="••••••••" autocomplete="current-password" />
-                            <button type="button" onclick="togglePassword()" class="btn-secondary" style="border-radius: 0 8px 8px 0; padding: 12px 14px;" aria-label="Şifreyi göster">
+                            <button type="button" onclick="togglePassword()" class="btn-secondary" style="border-radius: 0 8px 8px 0;" aria-label="Şifreyi göster">
                                 <i id="eyeIcon" class="fa-regular fa-eye"></i>
                             </button>
                         </div>
                     </div>
-                    <button id="loginBtn" type="button" onclick="girisYap()" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; margin-top: 8px;">
+                    <button id="loginBtn" type="button" onclick="girisYap()" class="btn-primary" style="width: 100%; justify-content: center; padding: 16px 18px; margin-top: 12px; min-height: 52px; font-size: 15px;">
                         Giriş Yap
                     </button>
                     <p id="errorMsg" class="error-text hidden"></p>

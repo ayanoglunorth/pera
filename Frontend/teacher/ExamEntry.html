@@ -1,30 +1,37 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pera — Deneme Sonuç Girişi</title>
+    <title>Pera — Deneme Sonuç Girisi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="pera-layout.css" />
+    <link rel="stylesheet" href="../pera-layout.css" />
 </head>
 <body class="app-body">
     <aside class="sidebar">
         <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
-            <li class="nav-item active"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
-            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
-            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
-            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Notlar</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Hedefler</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Takvim</a></li>
             <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
             <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
             <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
-            <li class="nav-item"><a href="ResultUpload.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
+            <li class="nav-item active"><a href="ExamEntry.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
             <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
             <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
             <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
         </ul>
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebarAvatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="sidebarName">Yükleniyor...</div>
+                <div class="user-role" id="sidebarRole">Öğretmen</div>
+            </div>
+        </div>
     </aside>
 
     <main class="main-content" style="padding: 0; display: flex; flex-direction: column; overflow: hidden;">
@@ -48,16 +55,16 @@
                     </select>
                 </div>
                 <div id="ogrenciOzet" class="hidden" style="flex: 1; padding: 24px; text-align: center;">
-                    <div style="width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-size: 32px;">🎓</div>
+                    <div style="width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; font-size: 32px;">??</div>
                     <h3 id="ozetAd" style="font-weight: 800; font-size: 18px;">...</h3>
-                    <p class="card-muted">Veri girişi için hazır.</p>
+                    <p class="card-muted">Veri girisi için hazir.</p>
                 </div>
             </div>
 
             <div class="chat-panel" style="padding: 24px 30px; overflow-y: auto;">
                 <div id="emptyState" class="empty-chat" style="min-height: 320px;">
                     <i class="fa-regular fa-hand-pointer" style="font-size: 48px; opacity: 0.35;"></i>
-                    <p style="font-weight: 600; max-width: 360px;">Soldan öğrenci seçerek notları girmeye başla.</p>
+                    <p style="font-weight: 600; max-width: 360px;">Soldan ögrenci seçerek notlari girmeye basla.</p>
                 </div>
 
                 <div id="entryForm" class="hidden stack" style="max-width: 960px;">
@@ -89,7 +96,7 @@
                         </div>
                         <div class="subject-entry" style="border-top-color: #9333ea;">
                             <span class="max-hint">Max:10</span>
-                            <h4>İnkılap Tarihi</h4>
+                            <h4>Inkilap Tarihi</h4>
                             <div class="dy-row">
                                 <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="InkilapDogru" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
                                 <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="InkilapYanlis" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
@@ -105,7 +112,7 @@
                         </div>
                         <div class="subject-entry" style="border-top-color: #db2777;">
                             <span class="max-hint">Max:10</span>
-                            <h4>İngilizce</h4>
+                            <h4>Ingilizce</h4>
                             <div class="dy-row">
                                 <div class="flex-1"><div class="mini-label" style="color:#15803d;">D</div><input type="number" id="IngilizceDogru" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
                                 <div class="flex-1"><div class="mini-label" style="color:#dc2626;">Y</div><input type="number" id="IngilizceYanlis" min="0" max="10" class="input-field" style="text-align:center;font-weight:700;" /></div>
@@ -128,7 +135,7 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            // if (!token || !sinavId) { window.location.href = "Exams.html"; return; }
+            if (!token || !sinavId) { window.location.href = "Exams.html"; return; }
             try {
                 const res = await fetch(`${baseUrl}/api/Exams/detail/${sinavId}`, { headers: { "Authorization": `Bearer ${token}` } });
                 if (res.ok) {
@@ -138,7 +145,31 @@
                 }
             } catch (e) {}
             await ogrencileriYukle(token);
+            const user = parseJwt(token);
+            window.user = user;
+            window.currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            if (user) {
+                const userName = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
+                const firstLetter = userName.charAt(0).toUpperCase();
+                document.getElementById("sidebarAvatar").textContent = firstLetter;
+                document.getElementById("sidebarName").textContent = userName;
+            }
         });
+
+        function parseJwt(token) {
+            try {
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")));
+            } catch (e) { return null; }
+        }
+
+        function togglePopup(id) {
+            const popup = document.getElementById(id);
+            if (!popup) return;
+            document.querySelectorAll('.popup-panel').forEach(p => {
+                if (p.id !== id) p.classList.remove('active');
+            });
+            popup.classList.toggle('active');
+        }
 
         async function ogrencileriYukle(token) {
             try {
@@ -190,8 +221,8 @@
                     headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                     body: JSON.stringify(bodyData)
                 });
-                if (res.ok) alert("Kayıt başarılı.");
-                else alert("Kayıt yapılamadı.");
+                if (res.ok) alert("Kayit basarili.");
+                else alert("Kayit yapilamadi.");
             } catch (e) { console.error(e); }
         }
 
@@ -201,3 +232,5 @@
     </script>
 </body>
 </html>
+
+

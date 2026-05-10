@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="auth-page">
-        <div class="auth-shell" style="max-width: 1000px;">
+        <div class="auth-shell">
             <div class="auth-hero">
                 <div class="auth-brand"><i class="fa-solid fa-leaf"></i> Pera</div>
                 <div>
@@ -23,45 +23,45 @@
                 <h1 class="auth-title">Hesap oluştur</h1>
                 <p class="auth-lead">Eğitim yolculuğuna başlamak için bilgilerini gir.</p>
 
-                <div class="role-toggle mb-2" style="margin-bottom: 20px;">
+                <div class="role-toggle" style="margin-bottom: 24px;">
                     <label><span>Öğretmenim</span><input type="radio" name="user_role" value="true" /></label>
                     <label><span>Öğrenciyim</span><input type="radio" name="user_role" value="false" checked /></label>
                 </div>
 
                 <div class="stack-sm">
                     <div class="row" style="gap: 12px;">
-                        <div class="flex-1">
+                        <div class="flex-1 form-group">
                             <label class="form-label" for="ad">Ad</label>
                             <input id="ad" class="input-field" placeholder="Adın" />
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 form-group">
                             <label class="form-label" for="soyad">Soyad</label>
                             <input id="soyad" class="input-field" placeholder="Soyadın" />
                         </div>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label class="form-label" for="email">E-posta</label>
                         <input id="email" type="email" class="input-field" placeholder="ornek@email.com" />
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label class="form-label" for="password">Şifre</label>
-                        <div class="row" style="gap: 0;">
+                        <div class="password-wrap">
                             <input id="password" type="password" class="input-field" style="border-radius: 8px 0 0 8px;" placeholder="En az 6 karakter" />
-                            <button type="button" onclick="togglePassword('password', 'eyeIcon1')" class="btn-secondary" style="border-radius: 0 8px 8px 0; padding: 12px 14px;">
+                            <button type="button" onclick="togglePassword('password', 'eyeIcon1')" class="btn-secondary" style="border-radius: 0 8px 8px 0;">
                                 <i id="eyeIcon1" class="fa-regular fa-eye"></i>
                             </button>
                         </div>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label class="form-label" for="confirmPassword">Şifre tekrarı</label>
-                        <div class="row" style="gap: 0;">
+                        <div class="password-wrap">
                             <input id="confirmPassword" type="password" class="input-field" style="border-radius: 8px 0 0 8px;" placeholder="Tekrar" />
-                            <button type="button" onclick="togglePassword('confirmPassword', 'eyeIcon2')" class="btn-secondary" style="border-radius: 0 8px 8px 0; padding: 12px 14px;">
+                            <button type="button" onclick="togglePassword('confirmPassword', 'eyeIcon2')" class="btn-secondary" style="border-radius: 0 8px 8px 0;">
                                 <i id="eyeIcon2" class="fa-regular fa-eye"></i>
                             </button>
                         </div>
                     </div>
-                    <button id="registerBtn" type="button" onclick="kayitOl()" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; margin-top: 8px;">Kayıt ol</button>
+                    <button id="registerBtn" type="button" onclick="kayitOl()" class="btn-primary" style="width: 100%; justify-content: center; padding: 16px 18px; margin-top: 12px; min-height: 52px; font-size: 15px;">Kayıt ol</button>
                     <p id="errorMsg" class="error-text hidden" style="font-weight: 600;"></p>
                 </div>
                 <p class="auth-footer">Zaten hesabın var mı? <a href="Login.html">Giriş yap</a></p>
@@ -119,7 +119,7 @@
                 const data = await response.json();
                 if (response.ok) {
                     alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsun.");
-                    window.location.href = "Login.html";
+                    window.location.href = "../auth/Login.html";
                 } else {
                     let mesaj = "Kayıt başarısız.";
                     if (data.errors && data.errors.length > 0) mesaj = data.errors[0].description;

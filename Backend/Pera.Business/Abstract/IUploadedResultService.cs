@@ -11,11 +11,4 @@ namespace Pera.Business.Abstract
         void Delete(int id, string teacherId);
         string GetFilePath(int id, string teacherId);
     }
-
-    public class UploadResultDto
-    {
-        public Microsoft.AspNetCore.Http.IFormFile File { get; set; }
-        public string FileName { get; set; }
-        public string ContentType { get; set; }
-    }
 }

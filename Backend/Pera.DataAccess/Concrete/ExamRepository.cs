@@ -59,10 +59,7 @@ namespace Pera.DataAccess.Concrete
 
         public List<Course> GetCourses()
         {
-            using (var context = new AppDbContext())
-            {
-                return context.Courses.ToList();
-            }
+            return _context.Courses.ToList();
         }
 
         public List<Exam> GetAllExams()
@@ -80,39 +77,27 @@ namespace Pera.DataAccess.Concrete
         // 1. Get all results for an exam
         public List<ExamResult> GetResultsByExamId(int examId)
         {
-            using (var context = new AppDbContext())
-            {
-                return context.ExamResults.Where(x => x.ExamId == examId).ToList();
-            }
+            return _context.ExamResults.Where(x => x.ExamId == examId).ToList();
         }
 
         // 2. Find a single student's result
         public ExamResult GetResult(int examId, string studentId)
         {
-            using (var context = new AppDbContext())
-            {
-                return context.ExamResults
-                              .FirstOrDefault(x => x.ExamId == examId && x.StudentId == studentId);
-            }
+            return _context.ExamResults
+                           .FirstOrDefault(x => x.ExamId == examId && x.StudentId == studentId);
         }
 
-        // 3. Add and Update (If using GenericRepository these already exist, otherwise add)
+        // 3. Add and Update
         public void Add(ExamResult entity)
         {
-            using (var context = new AppDbContext())
-            {
-                context.ExamResults.Add(entity);
-                context.SaveChanges();
-            }
+            _context.ExamResults.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(ExamResult entity)
         {
-            using (var context = new AppDbContext())
-            {
-                context.ExamResults.Update(entity);
-                context.SaveChanges();
-            }
+            _context.ExamResults.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

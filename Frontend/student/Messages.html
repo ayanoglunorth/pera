@@ -6,7 +6,7 @@
     <title>Pera — Mesajlar</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="pera-layout.css" />
+    <link rel="stylesheet" href="../pera-layout.css" />
     <style>
         .messages-shell-outer { flex: 1; display: flex; min-height: 0; overflow: hidden; }
     </style>
@@ -16,18 +16,13 @@
         <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
-            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
-            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
-            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
-            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
-            <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
-            <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
-            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
-            <li class="nav-item"><a href="ResultUpload.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Sınavlarım</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Notlarım</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Hedeflerim</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Takvim</a></li>
             <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
             <li class="nav-item active"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
             <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
-            <li class="nav-item" style="margin-top: 20px;"><a href="Login.html" class="nav-link" onclick="localStorage.removeItem('userToken');"><i class="fa-solid fa-arrow-right-from-bracket"></i> Çıkış Yap</a></li>
         </ul>
     </aside>
 
@@ -135,8 +130,10 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            if (!token) { window.location.href = "Login.html"; return; }
+            if (!token) { window.location.href = "../auth/Login.html"; return; }
             const user = parseJwt(token);
+            window.user = user;
+            window.currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             currentUserId = user.nameid || user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
             currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
@@ -145,7 +142,7 @@
             document.getElementById("headerAvatar").textContent = firstLetter;
             document.getElementById("popupAvatar").textContent = firstLetter;
             document.getElementById("popupName").textContent = userName;
-            document.getElementById("popupRole").textContent = currentUserRole === "Teacher" ? "Öğretmen" : "Öğrenci";
+            document.getElementById("popupRole").textContent = (user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]) === "Teacher" ? "Öğretmen" : "Öğrenci";
 
             await loadMessagesPopup(token);
             await loadNotificationsPopup(token);
@@ -355,7 +352,7 @@
             const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
             return JSON.parse(decodeURIComponent(window.atob(base64).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")));
         }
-        function logout() { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+        function logout() { localStorage.removeItem("userToken"); window.location.href = "../auth/Login.html"; }
         function togglePopup(id) {
             document.querySelectorAll('.popup-panel').forEach(p => { if (p.id !== id) p.classList.remove('active'); });
             document.getElementById(id).classList.toggle('active');

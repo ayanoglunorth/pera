@@ -6,51 +6,70 @@
     <title>Pera — Notlar</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="pera-layout.css" />
+    <link rel="stylesheet" href="../pera-layout.css" />
 </head>
 <body class="app-body">
     <aside class="sidebar">
         <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
-            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
-            <li class="nav-item active"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
-            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
-            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
-            
-            
-            
-            
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Sınavlar</a></li>
+            <li class="nav-item active"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Notlar</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Hedefler</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Takvim</a></li>
+            <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
+            <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
+            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="ExamEntry.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
             <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
             <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
             <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
         </ul>
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebarAvatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="sidebarName">Yükleniyor...</div>
+                <div class="user-role" id="sidebarRole">Öğretmen</div>
+            </div>
+        </div>
     </aside>
 
     <main class="main-content">
+                
         <header class="header">
             <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Ara..." /></div>
             <div class="header-actions">
-                <div class="popup-container"><button class="icon-btn" onclick="togglePopup('messagesPopup')"><i class="fa-regular fa-envelope"></i></button><div id="messagesPopup" class="popup-panel"><div class="popup-header"><h3>Mesajlar</h3><button class="btn-ghost btn-sm" onclick="togglePopup('messagesPopup')"><i class="fa-solid fa-xmark"></i></button></div><div class="popup-content" id="messagesPopupContent"><div class="empty-state"><p>Yükleniyor...</p></div></div><div class="popup-footer"><a href="Messages.html" class="btn-ghost btn-sm">Tüm mesajları gör</a></div></div></div>
-                <div class="popup-container"><button class="icon-btn" onclick="togglePopup('notificationsPopup')"><i class="fa-regular fa-bell"></i><span class="badge" id="notifBadge" style="display:none;">0</span></button><div id="notificationsPopup" class="popup-panel"><div class="popup-header"><h3>Bildirimler</h3><button class="btn-ghost btn-sm" onclick="togglePopup('notificationsPopup')"><i class="fa-solid fa-xmark"></i></button></div><div class="popup-content" id="notifPopupContent"><div class="empty-state"><p>Yükleniyor...</p></div></div><div class="popup-footer"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div></div></div>
                 <div class="popup-container">
-                    <div class="header-avatar" style="display:flex;align-items:center;gap:5px;cursor:pointer;" onclick="togglePopup('profilePopup')"><div class="header-avatar-circle" id="headerAvatar">?</div><i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-gray);"></i></div>
+                    <button class="icon-btn" onclick="togglePopup('messagesPopup')"><i class="fa-regular fa-envelope"></i></button>
+                    <div id="messagesPopup" class="popup-panel">
+                        <div class="popup-header"><h3>Mesajlar</h3><button class="btn-ghost btn-sm" onclick="togglePopup('messagesPopup')"><i class="fa-solid fa-xmark"></i></button></div>
+                        <div class="popup-content" id="messagesPopupContent"><div class="empty-state"><p>Yükleniyor...</p></div></div>
+                        <div class="popup-footer"><a href="Messages.html" class="btn-ghost btn-sm">Tüm mesajları gör</a></div>
+                    </div>
+                </div>
+                <div class="popup-container">
+                    <button class="icon-btn" onclick="togglePopup('notificationsPopup')"><i class="fa-regular fa-bell"></i><span class="badge" id="notifBadge" style="display:none;">0</span></button>
+                    <div id="notificationsPopup" class="popup-panel">
+                        <div class="popup-header"><h3>Bildirimler</h3><button class="btn-ghost btn-sm" onclick="togglePopup('notificationsPopup')"><i class="fa-solid fa-xmark"></i></button></div>
+                        <div class="popup-content" id="notifPopupContent"><div class="empty-state"><p>Yükleniyor...</p></div></div>
+                        <div class="popup-footer"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div>
+                    </div>
+                </div>
+                <div class="popup-container">
+                    <div class="header-avatar" onclick="togglePopup('profilePopup')">
+                        <div class="header-avatar-circle" id="headerAvatar">?</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-gray);"></i>
+                    </div>
                     <div id="profilePopup" class="popup-panel" style="width: 260px;">
                         <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); text-align: center;">
                             <div class="header-avatar-circle" id="popupAvatar" style="width: 56px; height: 56px; font-size: 22px; margin: 0 auto 12px;">?</div>
                             <div style="font-weight: 600; font-size: 15px;" id="popupName">-</div>
-                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;" id="popupRole">Öğretmen</div>
+                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;" id="popupRole">Kullanıcı</div>
                         </div>
                         <div class="popup-content" style="padding: 8px 0;">
-                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
-                                <i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil
-                            </a>
-                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
-                                <i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar
-                            </a>
-                            <div class="popup-item" onclick="localStorage.removeItem('userToken'); window.location.href='../auth/Login.html';" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;">
-                                <i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap
-                            </div>
+                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;"><i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil</a>
+                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;"><i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar</a>
+                            <div class="popup-item" onclick="localStorage.removeItem('userToken'); window.location.href='../auth/Login.html';" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;"><i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap</div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +124,7 @@
                 </div>
                 <div class="search-bar" style="max-width: 100%; width: 280px;">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="dersArama" onkeyup="dersAra()" placeholder="Ders veya sınav ara..." />
+                    <input type="text" id="dersArama" onkeyup="dersAra()" placeholder="Ders veya sinav ara..." />
                 </div>
             </div>
             <div id="derslerAkordiyonu" class="stack"></div>
@@ -133,7 +152,7 @@
             </div>
             <div class="modal-foot">
                 <button type="button" class="btn-secondary" onclick="closeAddModal()">İptal</button>
-                <button type="button" class="btn-primary" onclick="saveYazili()">Oluştur</button>
+                <button type="button" class="btn-primary" onclick="saveYazılı()">Oluştur</button>
             </div>
         </div>
     </div>
@@ -144,12 +163,32 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("userToken");
-            if (!token) { window.location.href = "Login.html"; return; }
-            let userRole = localStorage.getItem("userRole");
-            if (!userRole) userRole = parseJwt(token).role;
+            if (!token) { window.location.href = "../auth/Login.html"; return; }
+            const user = parseJwt(token);
+            window.user = user;
+            window.currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            if (!user) { logout(); return; }
+            let userRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            const userName = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
+            const firstLetter = userName.charAt(0).toUpperCase();
+            document.getElementById("sidebarAvatar").textContent = firstLetter;
+            document.getElementById("sidebarName").textContent = userName;
+            
+            // Header avatar & popup user data
+            const headerAvatar = document.getElementById("headerAvatar");
+            if (headerAvatar) headerAvatar.textContent = firstLetter;
+            
+            const popupAvatar = document.getElementById("popupAvatar");
+            if (popupAvatar) popupAvatar.textContent = firstLetter;
+            
+            const popupName = document.getElementById("popupName");
+            if (popupName) popupName.textContent = userName;
+            
+            const popupRole = document.getElementById("popupRole");
+            if (popupRole) popupRole.textContent = (user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]) === "Teacher" ? "Öğretmen" : "Öğrenci";
+
             document.getElementById("userRoleBadge").innerText = userRole === "Teacher" ? "Eğitmen Hesabı" : "Öğrenci Paneli";
             document.getElementById("newExamDate").valueAsDate = new Date();
-
             if (userRole === "Teacher") {
                 document.getElementById("ogretmenPaneli").classList.remove("hidden");
                 document.getElementById("addExamBtn").classList.remove("hidden");
@@ -169,7 +208,7 @@
             if (name.includes("matematik")) return "acc-stripe--mat";
             if (name.includes("fen")) return "acc-stripe--fen";
             if (name.includes("türkçe") || name.includes("turkce")) return "acc-stripe--tur";
-            if (name.includes("inkılap") || name.includes("inkilap")) return "acc-stripe--ink";
+            if (name.includes("inkilap") || name.includes("inkilap")) return "acc-stripe--ink";
             if (name.includes("din")) return "acc-stripe--din";
             if (name.includes("ingilizce")) return "acc-stripe--ing";
             return "acc-stripe--def";
@@ -177,7 +216,7 @@
 
         async function karneYukle(token) {
             const container = document.getElementById("derslerAkordiyonu");
-            container.innerHTML = '<p class="card-muted">Notların yükleniyor...</p>';
+            container.innerHTML = '<p class="card-muted">Notlarin yükleniyor...</p>';
             try {
                 const res = await fetch(`${baseUrl}/api/Exams/student-report`, { headers: { "Authorization": `Bearer ${token}` } });
                 if (res.ok) {
@@ -185,23 +224,23 @@
                     container.innerHTML = "";
                     data = data.filter(item => {
                         if (item.type && item.type !== "Written") return false;
-                        if (!item.type && item.name && !item.name.toLowerCase().includes("yazılı")) return false;
+                        if (!item.type && item.name && !item.name.toLowerCase().includes("yazili")) return false;
                         return true;
                     });
-                    if (data.length === 0) {
+                        if (data.length === 0) {
                         container.innerHTML = '<div class="card"><p class="card-muted">Henüz yazılı notu yok.</p></div>';
                         return;
                     }
                     const gruplar = {};
                     data.forEach(sinav => {
-                        let dersAdi = "Diğer Dersler";
+                        let dersAdi = "Diger Dersler";
                         const ad = sinav.name.toLowerCase();
                         if (ad.includes("matematik")) dersAdi = "Matematik";
                         else if (ad.includes("fen")) dersAdi = "Fen Bilimleri";
                         else if (ad.includes("türkçe") || ad.includes("turkce")) dersAdi = "Türkçe";
-                        else if (ad.includes("inkılap") || ad.includes("inkilap")) dersAdi = "T.C. İnkılap Tarihi";
+                        else if (ad.includes("inkilap") || ad.includes("inkilap")) dersAdi = "T.C. Inkilap Tarihi";
                         else if (ad.includes("din")) dersAdi = "Din Kültürü";
-                        else if (ad.includes("ingilizce")) dersAdi = "İngilizce";
+                        else if (ad.includes("ingilizce")) dersAdi = "Ingilizce";
                         if (!gruplar[dersAdi]) gruplar[dersAdi] = [];
                         gruplar[dersAdi].push(sinav);
                     });
@@ -229,7 +268,7 @@
                                     <div class="acc-head-main">
                                         <div>
                                             <p style="font-weight: 700; font-size: 17px;">${dersAdi}</p>
-                                            <p class="card-muted">${sinavlar.length} sınav kaydı</p>
+                                            <p class="card-muted">${sinavlar.length} sinav kaydi</p>
                                         </div>
                                         <i class="fa-solid fa-chevron-down acc-icon"></i>
                                     </div>
@@ -270,7 +309,7 @@
                 const res = await fetch(`${baseUrl}/api/Exams/definitions?type=Written`, { headers: { "Authorization": `Bearer ${token}` } });
                 const data = await res.json();
                 const select = document.getElementById("sinavSelect");
-                select.innerHTML = '<option value="">Bir sınav seçiniz...</option>';
+                select.innerHTML = '<option value="">Bir sinav seçiniz...</option>';
                 data.forEach(s => {
                     select.innerHTML += `<option value="${s.examId}">${s.name} (${new Date(s.date).toLocaleDateString("tr-TR")})</option>`;
                 });
@@ -331,7 +370,7 @@
 
         function openAddModal() { document.getElementById("addExamModal").classList.remove("hidden"); }
         function closeAddModal() { document.getElementById("addExamModal").classList.add("hidden"); }
-        async function saveYazili() {
+        async function saveYazılı() {
             const token = localStorage.getItem("userToken");
             const ad = document.getElementById("newExamName").value;
             const tarih = document.getElementById("newExamDate").value;
@@ -352,50 +391,11 @@
             const jsonPayload = decodeURIComponent(window.atob(base64).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""));
             return JSON.parse(jsonPayload);
         }
-    </script>
-    <style>
-        .popup-container { position: relative; }
-        .popup-container button { outline: none; border: none; background: none; }
-        .popup-panel { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 300px; background: var(--white); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 1px solid var(--border-color); z-index: 1000; }
-        .popup-panel.active { display: block; }
-        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border-color); }
-        .popup-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
-        .popup-content { max-height: 250px; overflow-y: auto; }
-        .popup-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--border-color); }
-        .popup-item:last-child { border-bottom: none; }
-        .popup-item:hover { background: var(--primary-bg); }
-        .popup-item.unread { background: rgba(37, 99, 235, 0.04); }
-        .popup-avatar, .popup-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; flex-shrink: 0; }
-        .popup-avatar { background: var(--primary-blue); color: white; }
-        .popup-icon { font-size: 14px; }
-        .popup-icon.exam { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
-        .popup-icon.result { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
-        .popup-text { flex: 1; min-width: 0; }
-        .popup-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .popup-desc { font-size: 12px; color: var(--text-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .popup-time { font-size: 11px; color: var(--text-gray); flex-shrink: 0; }
-        .popup-footer { padding: 12px 16px; border-top: 1px solid var(--border-color); text-align: center; }
-        .btn-sm { padding: 6px 12px; font-size: 12px; }
-        .header-avatar-circle { width: 35px; height: 35px; border-radius: 50%; background-color: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
-    </style>
-    <script>
-        function togglePopup(id) {
-            const popup = document.getElementById(id);
-            if (!popup) return;
-            document.querySelectorAll('.popup-panel').forEach(p => {
-                if (p.id !== id) p.classList.remove('active');
-            });
-            popup.classList.toggle('active');
-        }
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.popup-container')) {
-                document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
-            }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
-        });
-        function logout() { localStorage.removeItem('userToken'); window.location.href = '../auth/Login.html'; }
+        
+        // (Duplicate DOMContentLoaded removed — merged into single listener above)
+
+        function logout() { localStorage.removeItem("userToken"); window.location.href = "../auth/Login.html"; }
+
         async function loadMessagesPopup(token) {
             const container = document.getElementById("messagesPopupContent");
             try {
@@ -417,10 +417,12 @@
                     const unread = data.filter(n => !n.isRead).length;
                     if (badge) { badge.style.display = unread > 0 ? 'flex' : 'none'; badge.textContent = unread; }
                     if (!data.length) { container.innerHTML = '<div class="empty-state"><p>Henüz bildirim yok</p></div>'; return; }
-                    container.innerHTML = data.slice(0, 5).map(n => `<div class="popup-item ${n.isRead ? '' : 'unread'}" onclick="window.location.href='Notifications.html'"><div class="popup-avatar"><i class="fa-solid fa-bell"></i></div><div class="popup-text"><div class="popup-title">${n.title}</div><div class="popup-desc">${(n.description || '').substring(0, 40)}...</div></div></div>`).join('') + '<div class="popup-footer" style="padding:8px 16px;border-top:1px solid var(--border-color);"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div>';
+                    container.innerHTML = data.slice(0, 5).map(n => `<div class="popup-item" onclick="window.location.href='Notifications.html'"><div class="popup-avatar"><i class="fa-solid fa-bell"></i></div><div class="popup-text"><div class="popup-title">${n.title}</div><div class="popup-desc">${(n.description || '').substring(0, 40)}...</div></div></div>`).join('') + '<div class="popup-footer" style="padding:8px 16px;border-top:1px solid var(--border-color);"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div>';
                 }
             } catch { container.innerHTML = '<div class="empty-state"><p>Yüklenemedi</p></div>'; }
         }
-    </script>
+</script>
 </body>
 </html>
+
+

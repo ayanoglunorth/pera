@@ -106,11 +106,17 @@ Controller → Service (Business) → Repository (DataAccess) → Entity
 - ✅ Header popup'larında dinamik veri gösterimi
 - ✅ Sahte veri temizliği (pravatar resimleri, hardcoded isimler, placeholder alert'ler)
 - ✅ PostgreSQL'e tam geçiş
+- ✅ appsettings.json düzeltildi (ConnectionStrings + JwtSettings eksikti)
+- ✅ CourseRepository ve ExamRepository DI ile tutarlı hale getirildi (new AppDbContext() kaldırıldı)
+- ✅ ExamEntry.html auth guard yeniden aktif edildi; eksik parseJwt eklendi
+- ✅ Teacher dashboard statTotalExams artık gerçek veriyi gösteriyor
+- ✅ Login.html yasaklı Unsplash görseli inline SVG ile değiştirildi
+- ✅ Kullanılmayan ExamCreateDto.cs ve CalendarEventDto.cs silindi
+- ✅ UploadResultDto Business layer'dan kendi dosyasına taşındı
 
 ### Yapılacak / Eksik
 - ⚠️ `newGoal()` fonksiyonu placeholder — backend endpoint'i mevcut ama form UI'ı yok
-- ⚠️ `ResultUpload.html` sidebar'da link var ama dosya yok (nav'dan kaldırıldı)
-- ⚠️ Rozet/hedef gibi gamification verileri backend'de yok — şimdilik profil sayfasında kaldırıldı
+- ⚠️ Calendar sayfası statik — API endpoint'i henüz yok
 
 ---
 

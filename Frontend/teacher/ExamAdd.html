@@ -6,7 +6,7 @@
     <title>Pera — Deneme Sonucu Gir</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="pera-layout.css" />
+    <link rel="stylesheet" href="../pera-layout.css" />
     <style>
         .net-cell { font-weight: 700; text-align: center; background: rgba(37, 99, 235, 0.06); }
         .score-input-table { text-align: center; font-weight: 600; max-width: 72px; margin: 0 auto; }
@@ -17,21 +17,29 @@
         <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
-            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
-            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
-            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
-            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
-            
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Notlar</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Hedefler</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Takvim</a></li>
+            <li class="nav-item"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
             <li class="nav-item active"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
-            
-            
+            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="ExamEntry.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
             <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
             <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
             <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
         </ul>
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebarAvatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="sidebarName">Yükleniyor...</div>
+                <div class="user-role" id="sidebarRole">Öğretmen</div>
+            </div>
+        </div>
     </aside>
 
     <main class="main-content">
+                
         <header class="header">
             <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Ara..." /></div>
             <div class="header-actions">
@@ -52,23 +60,20 @@
                     </div>
                 </div>
                 <div class="popup-container">
-                    <div class="header-avatar" style="display:flex;align-items:center;gap:5px;cursor:pointer;" onclick="togglePopup('profilePopup')"><div class="header-avatar-circle" id="headerAvatar">?</div><i class="fa-solid fa-chevron-down" style="font-size:12px;color:var(--text-gray);"></i></div>
+                    <div class="header-avatar" onclick="togglePopup('profilePopup')">
+                        <div class="header-avatar-circle" id="headerAvatar">?</div>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: var(--text-gray);"></i>
+                    </div>
                     <div id="profilePopup" class="popup-panel" style="width: 260px;">
                         <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); text-align: center;">
                             <div class="header-avatar-circle" id="popupAvatar" style="width: 56px; height: 56px; font-size: 22px; margin: 0 auto 12px;">?</div>
                             <div style="font-weight: 600; font-size: 15px;" id="popupName">-</div>
-                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;" id="popupRole">Öğretmen</div>
+                            <div style="font-size: 13px; color: var(--text-gray); margin-top: 2px;" id="popupRole">Kullanıcı</div>
                         </div>
                         <div class="popup-content" style="padding: 8px 0;">
-                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
-                                <i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil
-                            </a>
-                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;">
-                                <i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar
-                            </a>
-                            <div class="popup-item" onclick="localStorage.removeItem('userToken'); window.location.href='../auth/Login.html';" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;">
-                                <i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap
-                            </div>
+                            <a href="Profile.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;"><i class="fa-regular fa-user" style="width: 18px; text-align: center;"></i> Profil</a>
+                            <a href="Settings.html" class="popup-item" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--text-dark); text-decoration: none;"><i class="fa-solid fa-gear" style="width: 18px; text-align: center;"></i> Ayarlar</a>
+                            <div class="popup-item" onclick="localStorage.removeItem('userToken'); window.location.href='../auth/Login.html';" style="display: flex; align-items: center; gap: 12px; padding: 12px 20px; cursor: pointer; color: #dc2626;"><i class="fa-solid fa-arrow-right-from-bracket" style="width: 18px; text-align: center;"></i> Çıkış Yap</div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +87,7 @@
             <div class="card stack">
                 <div>
                     <h1 class="page-title" style="font-size: 24px;">Deneme sonucu gir</h1>
-                    <p class="page-subtitle">Sınav ve öğrenciyi seç, netleri gir.</p>
+                    <p class="page-subtitle">Sınav ve ögrenciyi seç, netleri gir.</p>
                 </div>
 
                 <form id="examForm" class="stack">
@@ -93,7 +98,7 @@
                                 <select id="sinavSelect" class="select-field flex-1" required>
                                     <option value="">Yükleniyor...</option>
                                 </select>
-                                <a href="ExamDefine.html" class="btn-icon" title="Yeni sınav" style="text-decoration: none;"><i class="fa-solid fa-plus"></i></a>
+                                <a href="ExamDefine.html" class="btn-icon" title="Yeni sinav" style="text-decoration: none;"><i class="fa-solid fa-plus"></i></a>
                             </div>
                         </div>
                         <div>
@@ -110,8 +115,8 @@
                                 <tr>
                                     <th>Ders</th>
                                     <th class="text-center">Soru</th>
-                                    <th class="text-center">Doğru</th>
-                                    <th class="text-center">Yanlış</th>
+                                    <th class="text-center">Dogru</th>
+                                    <th class="text-center">Yanlis</th>
                                     <th class="text-center net-cell">Net</th>
                                 </tr>
                             </thead>
@@ -120,7 +125,7 @@
                     </div>
 
                     <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 16px;">
-                        <i class="fa-solid fa-floppy-disk"></i> Sonuçları kaydet
+                        <i class="fa-solid fa-floppy-disk"></i> Sonuçlari kaydet
                     </button>
                 </form>
             </div>
@@ -132,27 +137,29 @@
             { name: "Türkçe", limit: 20 },
             { name: "Matematik", limit: 20 },
             { name: "Fen Bilimleri", limit: 20 },
-            { name: "İnkılap Tarihi", limit: 10 },
+            { name: "Inkilap Tarihi", limit: 10 },
             { name: "Din Kültürü", limit: 10 },
-            { name: "İngilizce", limit: 10 }
+            { name: "Ingilizce", limit: 10 }
         ];
         const baseUrl = "http://localhost:5268";
 
         function parseJwt(token) {
             try {
-                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));;;
             } catch (e) { return null; }
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
             const tbody = document.getElementById("derslerBody");
             const token = localStorage.getItem("userToken");
-            if (!token) { window.location.href = "Login.html"; return; }
+            if (!token) { window.location.href = "../auth/Login.html"; return; }
             const user = parseJwt(token);
-            if (!user) { localStorage.removeItem("userToken"); window.location.href = "Login.html"; return; }
+            window.user = user;
+            window.currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            if (!user) { localStorage.removeItem("userToken"); window.location.href = "../auth/Login.html"; return; }
             const role = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             if (role !== "Teacher") {
-                alert("Bu sayfaya erişim yetkiniz yok.");
+                alert("Bu sayfaya erisim yetkiniz yok.");
                 window.location.href = "Dashboard.html";
                 return;
             }
@@ -174,12 +181,24 @@
             await loadDropdowns(token);
             loadMessagesPopup(token);
             loadNotificationsPopup(token);
+            const userName = user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] || user.unique_name || "Kullanıcı";
+            const firstLetter = userName.charAt(0).toUpperCase();
+            document.getElementById("sidebarAvatar").textContent = firstLetter;
+            document.getElementById("sidebarName").textContent = userName;
         });
+        function togglePopup(id) {
+            document.querySelectorAll('.popup-panel').forEach(p => { if (p.id !== id) p.classList.remove('active'); });
+            document.getElementById(id).classList.toggle('active');
+        }
 
-        async function loadDropdowns(token) {
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.popup-container')) {
+                document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
+            }
+        });
             try {
-                const resSinav = await fetch(`${baseUrl}/api/Exams/definitions?type=Trial`, { headers: { "Authorization": `Bearer ${token}` } });
-                const sinavlar = await resSinav.json();
+                const resSınav = await fetch(`${baseUrl}/api/Exams/definitions?type=Trial`, { headers: { "Authorization": `Bearer ${token}` } });
+                const sinavlar = await resSınav.json();
                 const sinavSelect = document.getElementById("sinavSelect");
                 sinavSelect.innerHTML = '<option value="">Sınav seçin...</option>';
                 sinavlar.forEach(s => { sinavSelect.innerHTML += `<option value="${s.examId}">${s.name} (${new Date(s.date).toLocaleDateString()})</option>`; });
@@ -213,7 +232,7 @@
                 const d = parseInt(document.getElementById(`d-${safeName}`).value, 10) || 0;
                 const y = parseInt(document.getElementById(`y-${safeName}`).value, 10) || 0;
                 if (d + y > ders.limit) {
-                    alert(`Hata: ${ders.name} — toplam ${ders.limit} soruyu aşamazsın.`);
+                    alert(`Hata: ${ders.name} — toplam ${ders.limit} soruyu asamazsin.`);
                     veriGecerli = false;
                     break;
                 }
@@ -237,75 +256,34 @@
                 } else alert("Hata: " + (await response.text()));
             } catch (error) { console.error(error); alert("Bağlantı hatası."); }
         });
-    </script>
-    <style>
-        .popup-container { position: relative; }
-        .popup-container button { outline: none; border: none; background: none; }
-        .popup-panel { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 300px; background: var(--white); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); border: 1px solid var(--border-color); z-index: 1000; }
-        .popup-panel.active { display: block; }
-        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border-color); }
-        .popup-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
-        .popup-content { max-height: 250px; overflow-y: auto; }
-        .popup-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--border-color); }
-        .popup-item:last-child { border-bottom: none; }
-        .popup-item:hover { background: var(--primary-bg); }
-        .popup-item.unread { background: rgba(37, 99, 235, 0.04); }
-        .popup-avatar, .popup-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; flex-shrink: 0; }
-        .popup-avatar { background: var(--primary-blue); color: white; }
-        .popup-icon { font-size: 14px; }
-        .popup-icon.exam { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
-        .popup-icon.result { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
-        .popup-text { flex: 1; min-width: 0; }
-        .popup-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .popup-desc { font-size: 12px; color: var(--text-gray); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .popup-time { font-size: 11px; color: var(--text-gray); flex-shrink: 0; }
-        .popup-footer { padding: 12px 16px; border-top: 1px solid var(--border-color); text-align: center; }
-        .btn-sm { padding: 6px 12px; font-size: 12px; }
-        .header-avatar-circle { width: 35px; height: 35px; border-radius: 50%; background-color: var(--primary-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; }
-    </style>
-    <script>
-        function togglePopup(id) {
-            const popup = document.getElementById(id);
-            if (!popup) return;
-            document.querySelectorAll('.popup-panel').forEach(p => {
-                if (p.id !== id) p.classList.remove('active');
-            });
-            popup.classList.toggle('active');
-        }
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.popup-container')) {
-                document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
-            }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.popup-panel').forEach(p => p.classList.remove('active'));
-        });
-        function logout() { localStorage.removeItem('userToken'); window.location.href = '../auth/Login.html'; }
+
         async function loadMessagesPopup(token) {
             const container = document.getElementById("messagesPopupContent");
             try {
-                const res = await fetch(`${baseUrl}/api/Messages/inbox`, { headers: { "Authorization": `Bearer ${token}` } });
+                const res = await fetch(${baseUrl}/api/Messages/inbox, { headers: { "Authorization": Bearer  } });
                 if (res.ok) {
                     const data = await res.json();
-                    if (!data.length) { container.innerHTML = '<div class="empty-state"><p>Henüz mesaj yok</p></div>'; return; }
-                    container.innerHTML = data.slice(0, 5).map(m => `<div class="popup-item" onclick="window.location.href='Messages.html'"><div class="popup-avatar">${m.fullName.charAt(0)}</div><div class="popup-text"><div class="popup-title">${m.fullName}</div><div class="popup-desc">${(m.lastMessage || '').substring(0, 40)}...</div></div></div>`).join('') + '<div class="popup-footer" style="padding:8px 16px;border-top:1px solid var(--border-color);"><a href="Messages.html" class="btn-ghost btn-sm">Tüm mesajları gör</a></div>';
+                    if (!data.length) { container.innerHTML = '<div class="empty-state"><p>Henuz mesaj yok</p></div>'; return; }
+                    container.innerHTML = data.slice(0, 5).map(m => <div class="popup-item" onclick="window.location.href='Messages.html'"><div class="popup-avatar"></div><div class="popup-text"><div class="popup-title"></div><div class="popup-desc">...</div></div></div>).join('') + '<div class="popup-footer" style="padding:8px 16px;border-top:1px solid var(--border-color);"><a href="Messages.html" class="btn-ghost btn-sm">Tum mesajlari gor</a></div>';
                 }
-            } catch { container.innerHTML = '<div class="empty-state"><p>Yüklenemedi</p></div>'; }
+            } catch { container.innerHTML = '<div class="empty-state"><p>Yuklenemedi</p></div>'; }
         }
         async function loadNotificationsPopup(token) {
             const container = document.getElementById("notifPopupContent");
             const badge = document.getElementById("notifBadge");
             try {
-                const res = await fetch(`${baseUrl}/api/Notifications`, { headers: { "Authorization": `Bearer ${token}` } });
+                const res = await fetch(${baseUrl}/api/Notifications, { headers: { "Authorization": Bearer  } });
                 if (res.ok) {
                     const data = await res.json();
                     const unread = data.filter(n => !n.isRead).length;
                     if (badge) { badge.style.display = unread > 0 ? 'flex' : 'none'; badge.textContent = unread; }
-                    if (!data.length) { container.innerHTML = '<div class="empty-state"><p>Henüz bildirim yok</p></div>'; return; }
-                    container.innerHTML = data.slice(0, 5).map(n => `<div class="popup-item ${n.isRead ? '' : 'unread'}" onclick="window.location.href='Notifications.html'"><div class="popup-avatar"><i class="fa-solid fa-bell"></i></div><div class="popup-text"><div class="popup-title">${n.title}</div><div class="popup-desc">${(n.description || '').substring(0, 40)}...</div></div></div>`).join('') + '<div class="popup-footer" style="padding:8px 16px;border-top:1px solid var(--border-color);"><a href="Notifications.html" class="btn-ghost btn-sm">Tüm bildirimleri gör</a></div>';
+                    if (!data.length) { container.innerHTML = '<div class="empty-state"><p>Henuz bildirim yok</p></div>'; return; }
+                    container.innerHTML = data.slice(0, 5).map(n => <div class="popup-item" onclick="window.location.href='Notifications.html'"><div class="popup-avatar"><i class="fa-solid fa-bell"></i></div><div class="popup-text"><div class="popup-title"></div><div class="popup-desc">...</div></div></div>).join('') + '<div class="popup-footer" style="padding:8px 16px;border-top:1px solid var(--border-color);"><a href="Notifications.html" class="btn-ghost btn-sm">Tum bildirimleri gor</a></div>';
                 }
-            } catch { container.innerHTML = '<div class="empty-state"><p>Yüklenemedi</p></div>'; }
-        }
-    </script>
+            } catch { container.innerHTML = '<div class="empty-state"><p>Yuklenemedi</p></div>'; }
+        }    </script>
 </body>
 </html>
+
+
+

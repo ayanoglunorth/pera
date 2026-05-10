@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pera.DTO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6cfef06618b799edbefe295bad6fa860a8b20258")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7db800ba466b03bffc6c7321de317e79903b7a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pera.DTO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pera.DTO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

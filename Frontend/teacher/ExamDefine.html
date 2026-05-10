@@ -6,25 +6,32 @@
     <title>Pera — Sınav Tanımla</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="pera-layout.css" />
+    <link rel="stylesheet" href="../pera-layout.css" />
 </head>
 <body class="app-body">
     <aside class="sidebar">
         <div class="logo-container"><i class="fa-solid fa-leaf"></i> Pera</div>
         <ul class="nav-menu">
             <li class="nav-item"><a href="Dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Panel</a></li>
-            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Öğrenciler</a></li>
-            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-user-group"></i> Eğitmenler</a></li>
-            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Performans</a></li>
-            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="Exams.html" class="nav-link"><i class="fa-regular fa-file-lines"></i> Sınavlar</a></li>
+            <li class="nav-item"><a href="Grades.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Notlar</a></li>
+            <li class="nav-item"><a href="Goals.html" class="nav-link"><i class="fa-regular fa-folder"></i> Hedefler</a></li>
+            <li class="nav-item"><a href="Calendar.html" class="nav-link"><i class="fa-regular fa-calendar"></i> Takvim</a></li>
             <li class="nav-item active"><a href="ExamDefine.html" class="nav-link"><i class="fa-solid fa-plus-circle"></i> Sınav Tanımla</a></li>
-            
-            
-            
+            <li class="nav-item"><a href="ExamAdd.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Deneme Sonuç</a></li>
+            <li class="nav-item"><a href="WrittenGradeEntry.html" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Yazılı Not</a></li>
+            <li class="nav-item"><a href="ExamEntry.html" class="nav-link"><i class="fa-solid fa-upload"></i> Sonuç Yükle</a></li>
             <li class="nav-item"><a href="Notifications.html" class="nav-link"><i class="fa-regular fa-bell"></i> Bildirimler</a></li>
             <li class="nav-item"><a href="Messages.html" class="nav-link"><i class="fa-regular fa-envelope"></i> Mesajlar</a></li>
             <li class="nav-item"><a href="Settings.html" class="nav-link"><i class="fa-solid fa-gear"></i> Ayarlar</a></li>
         </ul>
+        <div class="user-profile">
+            <div class="user-avatar" id="sidebarAvatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="sidebarName">Yükleniyor...</div>
+                <div class="user-role" id="sidebarRole">Öğretmen</div>
+            </div>
+        </div>
     </aside>
 
     <main class="main-content" style="justify-content: center;">
@@ -37,15 +44,15 @@
                     <div style="width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 50%; background: rgba(37,99,235,0.12); color: var(--primary-blue); display: flex; align-items: center; justify-content: center;">
                         <i class="fa-solid fa-calendar-plus fa-xl"></i>
                     </div>
-                    <h1 class="page-title" style="font-size: 22px;">Yeni sınav / etkinlik</h1>
+                    <h1 class="page-title" style="font-size: 22px;">Yeni sinav / etkinlik</h1>
                     <p class="page-subtitle">Takvime kayıt ekle.</p>
                 </div>
                 <form id="tanimForm" class="stack-sm">
                     <div>
                         <label class="form-label">Etkinlik türü</label>
                         <select id="sinavTur" class="select-field">
-                            <option value="Deneme">Deneme sınavı</option>
-                            <option value="Yazili">Okul yazılısı</option>
+                            <option value="Deneme">Deneme sinavi</option>
+                            <option value="Yazılı">Okul yazılısı</option>
                         </select>
                         <p class="form-hint">Denemeler analiz sistemine dahil edilir.</p>
                     </div>
@@ -70,7 +77,7 @@
 
         function parseJwt(token) {
             try {
-                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));
+                return JSON.parse(decodeURIComponent(window.atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""))));;;
             } catch (e) { return null; }
         }
 
@@ -81,12 +88,14 @@
         }
 
         const token = localStorage.getItem("userToken");
-        if (!token) { window.location.href = "Login.html"; }
+        if (!token) { window.location.href = "../auth/Login.html"; }
         const user = parseJwt(token);
-        if (!user) { localStorage.removeItem("userToken"); window.location.href = "Login.html"; }
+            window.user = user;
+            window.currentUserRole = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+        if (!user) { localStorage.removeItem("userToken"); window.location.href = "../auth/Login.html"; }
         const role = user.role || user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
         if (role !== "Teacher") {
-            alert("Bu sayfaya erişim yetkiniz yok.");
+            alert("Bu sayfaya erisim yetkiniz yok.");
             window.location.href = "Dashboard.html";
         }
 
@@ -103,9 +112,9 @@
                     body: JSON.stringify({ name: ad, date: tarih, type: tur })
                 });
                 if (response.ok) {
-                    alert("Kayıt başarılı.");
+                    alert("Kayit basarili.");
                     window.location.href = "Calendar.html";
-                } else alert("Hata oluştu.");
+                } else alert("Hata olustu.");
             } catch (error) {
                 console.error(error);
                 alert("Sunucu hatası.");
@@ -114,3 +123,5 @@
     </script>
 </body>
 </html>
+
+

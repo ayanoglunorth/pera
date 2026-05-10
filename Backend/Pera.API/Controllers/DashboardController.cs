@@ -57,6 +57,7 @@ namespace Pera.API.Controllers
             {
                 StudentCount = students.Count,
                 ClassAverage = classAvg.Any() ? classAvg.Average(x => x.Score ?? 0) : 0,
+                TotalExams = examDefinitions.Count,
                 PendingResults = 0
             };
         }
